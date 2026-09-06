@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rohitashva Classes - Neeraj Chaudhary</title>
+    <style>
+        :root { --primary: #0b3d91; --accent: #e74c3c; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); padding-bottom: 80px; }
+        header { background: var(--primary); color: white; padding: 30px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .card { padding: 25px; border-radius: 12px; color: white; cursor: pointer; text-align: center; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
+        
+        /* विषय रंग */
+        .history { background: #e74c3c; } .geography { background: #27ae60; } .polity { background: #2980b9; }
+        .economics { background: #8e44ad; } .science { background: #16a085; } .uk { background: #d35400; }
+        .hindi { background: #2c3e50; } .math { background: #f39c12; } .reasoning { background: #c0392b; }
+        .ca { background: #34495e; } .practice { background: #7f8c8d; }
+
+        .page { display: none; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        ul.list { list-style: none; padding: 0; }
+        ul.list li { background: #f8f9fa; margin: 8px 0; padding: 15px; border-radius: 10px; cursor: pointer; display: flex; justify-content: space-between; border-left: 5px solid var(--primary); font-weight: 500; }
+        ul.list li:hover { background: #eee; transform: translateX(5px); }
+
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 20px; }
+        .video-grid iframe { width: 100%; height: 210px; border-radius: 10px; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn-blog { display: inline-block; background: var(--accent); color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; margin: 20px 0; font-weight: bold; }
+        .home-btn { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 15px 30px; border-radius: 50px; cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .back-btn { margin-bottom: 20px; color: var(--primary); cursor: pointer; font-weight: bold; display: inline-block; padding: 8px 15px; background: #eee; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Rohitashva Classes</h1>
+    <p>Admin: Neeraj Chaudhary</p>
+</header>
+
+<div class="home-btn" onclick="showPage('homepage')">🏠 HOME</div>
+
+<div class="container">
+    <div id="homepage" class="page active">
+        <div class="grid">
+            <div class="card history" onclick="loadSections('History')">History</div>
+            <div class="card geography" onclick="loadSections('Geography')">Geography</div>
+            <div class="card polity" onclick="loadTopics('Polity', 'homepage')">Polity</div>
+            <div class="card economics" onclick="loadTopics('Economics', 'homepage')">Economics</div>
+            <div class="card science" onclick="loadSections('Science')">Science</div>
+            <div class="card uk" onclick="loadSections('Uttarakhand Special')">Uttarakhand Special</div>
+            <div class="card hindi" onclick="loadTopics('General Hindi', 'homepage')">General Hindi</div>
+            <div class="card reasoning" onclick="loadTopics('Reasoning', 'homepage')">Reasoning</div>
+            <div class="card math" onclick="loadTopics('Mathematics', 'homepage')">Mathematics</div>
+            <div class="card ca" onclick="loadTopics('Current Affairs', 'homepage')">Current Affairs</div>
+            <div class="card practice" onclick="loadTopics('Practice Sets', 'homepage')">Practice Sets</div>
+        </div>
+    </div>
+
+    <div id="section-page" class="page">
+        <div class="back-btn" onclick="showPage('homepage')">← Back</div>
+        <h2 id="sec-title"></h2>
+        <ul id="sec-list" class="list"></ul>
+    </div>
+
+    <div id="topic-list-page" class="page">
+        <div class="back-btn" id="list-back-btn">← Back</div>
+        <h2 id="list-title">Topics</h2>
+        <ul id="dynamic-topic-list" class="list"></ul>
+    </div>
+
+    <div id="topic-detail" class="page">
+        <div class="back-btn" onclick="showPage('topic-list-page')">← Back to List</div>
+        <h1 id="content-title"></h1>
+        <hr>
+        <p id="content-overview"></p>
+        <a id="content-blog" href="#" target="_blank" class="btn-blog">📖 Read Blog</a>
+        <div class="video-grid" id="video-container"></div>
+    </div>
+</div>
+
+<script>
+    const structure = {
+        "History": ["Ancient History", "Medieval History", "Modern History", "World History"],
+        "Ancient History": ["सिंधु घाटी सभ्यता", "वैदिक काल", "जैन एवं बौद्ध धर्म", "महाजनपद काल", "मौर्य साम्राज्य", "गुप्त राजवंश", "हर्षवर्धन काल", "दक्षिण भारत के राजवंश"],
+        "Medieval History": ["मुस्लिम आक्रमण", "दिल्ली सल्तनत", "मुगल काल", "भक्ति आंदोलन", "मराठा साम्राज्य", "सिख साम्राज्य", "विजयनगर साम्राज्य", "मध्यकालीन कला"],
+        "Modern History": ["यूरोपीय कंपनियां", "1857 विद्रोह", "गांधी युग", "क्रांतिकारी आंदोलन", "गवर्नर जनरल", "आजादी 1947", "कांग्रेस स्थापना", "स्वतंत्रता आंदोलन"],
+        "World History": ["फ्रांसीसी क्रांति", "रूसी क्रांति", "औद्योगिक क्रांति", "अमेरिकी क्रांति", "प्रथम विश्व युद्ध", "द्वितीय विश्व युद्ध", "फासीवाद", "शीत युद्ध"],
+        "Geography": ["Indian Geography", "World Geography"],
+        "Indian Geography": ["भारत परिचय", "नदियाँ", "जलवायु", "मिट्टी", "कृषि", "पर्वत", "खनिज", "वनस्पति"],
+        "World Geography": ["सौरमंडल", "वायुमंडल", "महाद्वीप", "महासागर", "पृथ्वी", "जलधाराएं", "चक्रवात", "खनिज विश्व"],
+        "Science": ["Physics", "Chemistry", "Biology"],
+        "Physics": ["मात्रक", "प्रकाश", "ध्वनि", "विद्युत", "ऊष्मा", "गति", "बल", "आधुनिक भौतिकी"],
+        "Chemistry": ["परमाणु", "पदार्थ", "तत्व", "अभिक्रियाएं", "अम्ल/क्षार", "धातु/अधातु", "ईंधन", "दैनिक रसायन"],
+        "Biology": ["कोशिका", "पाचन", "रक्त", "पादप", "विटामिन", "रोग", "हार्मोन", "अनुवांशिकी"],
+        "Uttarakhand Special": ["UK History", "UK Geography", "UK Culture", "National Parks", "Rivers", "Population"],
+        "UK History": ["प्रागैतिहासिक काल", "कत्यूरी राजवंश", "चंद राजवंश", "पंवार राजवंश", "गोरखा शासन", "ब्रिटिश शासन", "आंदोलन", "राज्य गठन"],
+        "Polity": ["संविधान सभा", "प्रस्तावना", "मौलिक अधिकार", "नीति निदेशक", "राष्ट्रपति", "संसद", "पंचायत", "अनुच्छेद"],
+        "General Hindi": ["वर्णमाला", "संधि", "समास", "तत्सम-तद्भव", "पर्यायवाची", "मुहावरे", "वाक्य शुद्धि", "हिंदी साहित्य"],
+        "Mathematics": ["Percentage", "Average", "Profit-Loss", "Ratio", "Time-Work", "Simple Interest"],
+        "Reasoning": ["Dices","Calendar","Coding-Decoding", "Series", "Blood Relation", "Direction", "Syllogism", "Analogy"],
+        "Economics": ["भारतीय अर्थव्यवस्था", "राष्ट्रीय आय", "बैंकिंग", "बजट", "योजनाएं", "मुद्रास्फीति", "कृषि", "उद्योग"],
+        "Current Affairs": ["Monthly Current Affairs", "Important Events"],
+        "Practice Sets": ["Practice Set 1", "Practice Set 2", "Practice Set 3", "Practice Set 4", "Practice Set 5", "Practice Set 6", "Practice Set 7", "Practice Set 8"]
+    };
+
+    const topicDatabase = {
+        "गांधी युग": {
+            overview: "Dices based questions for Exams",
+            blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", 
+                        videos: ["video id"]
+        },
+        "Dices": {
+            overview: "Dices based questions for Exams",
+            blog: "", 
+            videos: ["zesSsPeMCGI"]
+        },
+        "Calendar": {
+            overview: "Calendar based questions for Exams",
+            blog: "", 
+            videos: ["27aX5wRbxuA"]
+        },
+        "गोरखा शासन": {
+            overview: "उत्तराखंड में गोरखा शासन का विस्तृत विवरण...",
+            blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post_07.html",
+            videos: ["YOUTUBE_ID_1", "YOUTUBE_ID_2", "YOUTUBE_ID_3"]
+        },
+        "सिंधु घाटी सभ्यता": {
+            overview: "हड़प्पा और सिंधु सभ्यता...",
+            blog: "https://rohitashvaclasses.blogspot.com/2026/03/indus.html",
+            videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"]
+        },
+        "वर्णमाला": {
+            overview: "हिंदी वर्णमाला का परिचय...",
+            blog: "https://rohitashvaclasses.blogspot.com/2026/03/hindi.html",
+            videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"]
+        },
+        "Practice Set 1": {
+            overview: "प्रैक्टिस सेट 1 (गूगल फॉर्म)",
+            blog: "YOUR_GOOGLE_FORM_LINK",
+            videos: ["VID1", "VID2", "VID3"]
+        }
+    };
+
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function loadSections(subject) {
+        const list = document.getElementById('sec-list');
+        document.getElementById('sec-title').innerText = subject;
+        list.innerHTML = "";
+        structure[subject].forEach(sec => {
+            const li = document.createElement('li');
+            li.innerHTML = sec + " <span>➔</span>";
+            li.onclick = () => loadTopics(sec, 'section-page');
+            list.appendChild(li);
+        });
+        showPage('section-page');
+    }
+
+    function loadTopics(title, backTo) {
+        const list = document.getElementById('dynamic-topic-list');
+        document.getElementById('list-title').innerText = title;
+        list.innerHTML = "";
+        const topics = structure[title] || [];
+        topics.forEach(t => {
+            const li = document.createElement('li');
+            li.innerHTML = t + " <span>➔</span>";
+            li.onclick = () => loadContent(t);
+            list.appendChild(li);
+        });
+        document.getElementById('list-back-btn').onclick = () => showPage(backTo);
+        showPage('topic-list-page');
+    }
+
+    function loadContent(topic) {
+        const data = topicDatabase[topic] || {
+            overview: topic + " का कंटेंट जल्द आ रहा है।",
+            blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post.html",
+            videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"]
+        };
+        
+        document.getElementById('content-title').innerText = topic;
+        document.getElementById('content-overview').innerText = data.overview;
+        
+        const blogBtn = document.getElementById('content-blog');
+        if (data.blog === "" || data.blog === null) {
+            blogBtn.style.display = "none";
+        } else {
+            blogBtn.style.display = "inline-block";
+            blogBtn.href = data.blog;
+        }
+
+        const container = document.getElementById('video-container');
+        container.innerHTML = "";
+        data.videos.forEach(v => {
+            container.innerHTML += `<iframe src="https://www.youtube.com/embed/${v}" allowfullscreen></iframe>`;
+        });
+        showPage('topic-detail');
+    }
+</script>
+</body>
+</html>
