@@ -7,11 +7,13 @@
     <style>
         :root { --primary: #0b3d91; --accent: #e74c3c; --bg: #f4f7f6; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); padding-bottom: 50px; }
-        header { background: var(--primary); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .container { max-width: 1200px; margin: auto; padding: 10px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .card { padding: 25px; border-radius: 12px; color: white; cursor: pointer; text-align: center; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
+        header { background: var(--primary); color: white; padding: 18px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 1200px; margin: auto; padding: 5px 15px; }
+        
+        /* होमपेज के सब्जेक्ट्स को बड़ा और आकर्षक बनाया गया है */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 10px; }
+        .card { padding: 38px 20px; border-radius: 14px; color: white; cursor: pointer; text-align: center; font-size: 20px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
         
         /* विषय रंग */
         .history { background: #e74c3c; } .geography { background: #27ae60; } .polity { background: #2980b9; }
@@ -19,29 +21,30 @@
         .hindi { background: #2c3e50; } .math { background: #f39c12; } .reasoning { background: #c0392b; }
         .ca { background: #34495e; } .practice { background: #7f8c8d; }
 
-        .page { display: none; background: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-top: 10px; }
+        /* ऊपर की खाली जगह कम करने के लिए पैडिंग घटाई गई है */
+        .page { display: none; background: white; padding: 10px 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-top: 5px; }
         .active { display: block; animation: fadeIn 0.3s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        ul.list { list-style: none; padding: 0; margin-top: 10px; }
-        ul.list li { background: #f8f9fa; margin: 8px 0; padding: 12px 15px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; border-left: 5px solid var(--primary); font-weight: 500; }
+        ul.list { list-style: none; padding: 0; margin-top: 5px; }
+        ul.list li { background: #f8f9fa; margin: 8px 0; padding: 14px 18px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; border-left: 5px solid var(--primary); font-weight: 500; font-size: 16px; }
         ul.list li:hover { background: #eee; transform: translateX(5px); }
 
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 20px; }
         .video-grid iframe { width: 100%; height: 210px; border-radius: 10px; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .btn-blog { display: inline-block; background: var(--accent); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin: 10px 0; font-weight: bold; }
+        .btn-blog { display: inline-block; background: var(--accent); color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; margin: 10px 0; font-weight: bold; }
         .home-btn { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .back-btn { margin-bottom: 10px; color: var(--primary); cursor: pointer; font-weight: bold; display: inline-block; padding: 6px 12px; background: #eee; border-radius: 5px; }
+        .back-btn { margin-bottom: 5px; color: var(--primary); cursor: pointer; font-weight: bold; display: inline-block; padding: 6px 12px; background: #eee; border-radius: 5px; }
         
-        /* ब्लॉग आईफ्रेम बिना स्क्रॉल के पूरा दिखने के लिए */
-        .blog-frame { width: 100%; border: none; margin-top: 10px; background: #fff; min-height: 1200px; }
+        /* डबल स्क्रॉल हटाने के लिए आईफ्रेम की सेटिंग */
+        .blog-frame { width: 100%; border: none; margin-top: 5px; background: #fff; height: 1600px; overflow: hidden; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Rohitashva Classes</h1>
-    <p>Admin: Neeraj Chaudhary</p>
+    <p style="margin: 5px 0 0 0;">Admin: Neeraj Chaudhary</p>
 </header>
 
 <div class="home-btn" onclick="showPage('homepage')">🏠 HOME</div>
@@ -65,21 +68,21 @@
 
     <div id="section-page" class="page">
         <div class="back-btn" onclick="showPage('homepage')">← Back</div>
-        <h2 id="sec-title" style="margin-top:5px;"></h2>
+        <h2 id="sec-title" style="margin: 5px 0;"></h2>
         <ul id="sec-list" class="list"></ul>
     </div>
 
     <div id="topic-list-page" class="page">
         <div class="back-btn" id="list-back-btn">← Back</div>
-        <h2 id="list-title" style="margin-top:5px;">Topics</h2>
+        <h2 id="list-title" style="margin: 5px 0;">Topics</h2>
         <ul id="dynamic-topic-list" class="list"></ul>
     </div>
 
     <div id="topic-detail" class="page">
         <div class="back-btn" onclick="showPage('topic-list-page')">← Back to List</div>
-        <h1 id="content-title" style="margin-top:5px; margin-bottom:10px;"></h1>
-        <hr style="margin: 5px 0 15px 0;">
-        <p id="content-overview" style="margin-top:0;"></p>
+        <h1 id="content-title" style="margin: 2px 0 8px 0; font-size: 26px;"></h1>
+        <hr style="margin: 2px 0 10px 0;">
+        <p id="content-overview" style="margin: 0;"></p>
         
         <!-- प्रैक्टिस सेट के लिए बटन -->
         <a id="content-blog" href="#" target="_blank" class="btn-blog"></a>
@@ -233,7 +236,7 @@
                     blogBtn.innerText = "प्रैक्टिस सेट शुरू करने के लिए यहाँ क्लिक करें";
                     blogBtn.href = data.blog;
                 } else {
-                    iframeContainer.innerHTML = `<iframe src="${data.blog}" class="blog-frame"></iframe>`;
+                    iframeContainer.innerHTML = `<iframe src="${data.blog}" scrolling="no" class="blog-frame"></iframe>`;
                 }
             }
 
