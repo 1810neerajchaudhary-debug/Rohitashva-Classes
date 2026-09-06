@@ -78,13 +78,13 @@
         <hr>
         <p id="content-overview"></p>
         
-        <!-- प्रैक्टिस सेट के लिए खास बटन -->
+        <!-- प्रैक्टिस सेट के लिए बटन -->
         <a id="content-blog" href="#" target="_blank" class="btn-blog"></a>
         
-        <!-- बाकी सभी विषयों के सीधे कंटेंट के लिए iframe डिब्बा -->
+        <!-- बाकी सभी विषयों के सीधे कंटेंट के लिए (बिना स्क्रॉल बॉक्स के) -->
         <div id="blog-iframe-container"></div>
         
-        <!-- वीडियो सबसे नीचे -->
+        <!-- वीडियो हमेशा सबसे नीचे -->
         <div class="video-grid" id="video-container"></div>
     </div>
 </div>
@@ -116,39 +116,39 @@
 
     const topicDatabase = {
         "गांधी युग": {
-            overview: "Dices based questions for Exams",
+            overview: "", 
             blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", 
-            videos: ["video id"]
+            videos: []
         },
         "Dices": {
-            overview: "Dices based questions for Exams",
+            overview: "", 
             blog: "", 
             videos: ["zesSsPeMCGI"]
         },
         "Calendar": {
-            overview: "Calendar based questions for Exams",
+            overview: "", 
             blog: "", 
             videos: ["27aX5wRbxuA"]
         },
         "गोरखा शासन": {
-            overview: "उत्तराखंड में गोरखा शासन का विस्तृत विवरण...",
+            overview: "", 
             blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post_07.html",
             videos: ["YOUTUBE_ID_1", "YOUTUBE_ID_2", "YOUTUBE_ID_3"]
         },
         "सिंधु घाटी सभ्यता": {
-            overview: "हड़प्पा और सिंधु सभ्यता...",
+            overview: "", 
             blog: "https://rohitashvaclasses.blogspot.com/2026/03/indus.html",
             videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"]
         },
         "वर्णमाला": {
-            overview: "हिंदी वर्णमाला का परिचय...",
+            overview: "", 
             blog: "https://rohitashvaclasses.blogspot.com/2026/03/hindi.html",
             videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"]
         },
         "PYQ Practice Set 1 (सामान्य हिन्दी)": {
-            overview: "प्रैक्टिस सेट 1 (सामान्य हिन्दी)",
+            overview: "प्रैक्टिस सेट 1 (सामान्य हिन्दी के महत्वपूर्ण प्रश्न)",
             blog: "https://rohitashvaclasses.blogspot.com/2026/09/mock-test-1-previous-year-paper-general.html",
-            videos: ["to be available soon"]
+            videos: []
         }
     };
 
@@ -188,39 +188,46 @@
 
     function loadContent(topic) {
         const data = topicDatabase[topic] || {
-            overview: topic + " का कंटेंट जल्द आ रहा है।",
-            blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post.html",
-            videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"]
+            overview: "",
+            blog: "",
+            videos: []
         };
         
         document.getElementById('content-title').innerText = topic;
-        document.getElementById('content-overview').innerText = data.overview;
+        
+        // अगर डेटाबेस में ओवरव्यू (overview) खाली नहीं है तभी दिखाएं, वरना छुपा दें
+        const overviewElem = document.getElementById('content-overview');
+        if (data.overview && data.overview.trim() !== "") {
+            overviewElem.innerText = data.overview;
+            overviewElem.style.display = "block";
+        } else {
+            overviewElem.innerText = "";
+            overviewElem.style.display = "none";
+        }
         
         const blogBtn = document.getElementById('content-blog');
         const iframeContainer = document.getElementById('blog-iframe-container');
         const videoContainer = document.getElementById('video-container');
 
-        // शुरुआत में सब साफ़ रखें
         blogBtn.style.display = "none";
         iframeContainer.innerHTML = "";
         videoContainer.innerHTML = "";
 
-        if (data.blog) {
-            // अगर प्रैक्टिस सेट है, तो सिर्फ बटन दिखाएँ
+        if (data.blog && data.blog.trim() !== "") {
             if (topic.includes("Practice Set")) {
                 blogBtn.style.display = "inline-block";
                 blogBtn.innerText = "प्रैक्टिस सेट शुरू करने के लिए यहाँ क्लिक करें";
                 blogBtn.href = data.blog;
             } else {
-                // बाकी सभी विषयों (जैसे मौर्य वंश) के लिए सीधा कंटेंट (iframe) दिखाएँ
-                iframeContainer.innerHTML = `<iframe src="${data.blog}" width="100%" height="900px" style="border:none; margin-top:20px; border-radius:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></iframe>`;
+                // बिना फिक्स हाइट के आईफ्रेम ताकि स्क्रॉल की दिक्कत न हो
+                iframeContainer.innerHTML = `<iframe src="${data.blog}" width="100%" scrolling="no" style="border:none; margin-top:15px; border-radius:10px;" onload="this.style.height=this.contentWindow.document.body.scrollHeight+'px';"></iframe>`;
             }
         }
 
-        // वीडियो हमेशा सबसे अंत में आएँगे
+        // वीडियो हमेशा सबसे नीचे
         if (data.videos && data.videos.length > 0) {
             data.videos.forEach(v => {
-                if (v !== "to be available soon" && v !== "video id" && v !== "") {
+                if (v && v !== "to be available soon" && v !== "video id") {
                     videoContainer.innerHTML += `<iframe src="https://www.youtube.com/embed/${v}" allowfullscreen></iframe>`;
                 }
             });
