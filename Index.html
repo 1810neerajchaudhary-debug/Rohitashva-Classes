@@ -77,7 +77,14 @@
         <h1 id="content-title"></h1>
         <hr>
         <p id="content-overview"></p>
-        <a id="content-blog" href="#" target="_blank" class="btn-blog">📖 Read Blog</a>
+        
+        <!-- प्रैक्टिस सेट के लिए खास बटन -->
+        <a id="content-blog" href="#" target="_blank" class="btn-blog"></a>
+        
+        <!-- बाकी सभी विषयों के सीधे कंटेंट के लिए iframe डिब्बा -->
+        <div id="blog-iframe-container"></div>
+        
+        <!-- वीडियो सबसे नीचे -->
         <div class="video-grid" id="video-container"></div>
     </div>
 </div>
@@ -111,7 +118,7 @@
         "गांधी युग": {
             overview: "Dices based questions for Exams",
             blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", 
-                        videos: ["video id"]
+            videos: ["video id"]
         },
         "Dices": {
             overview: "Dices based questions for Exams",
@@ -190,18 +197,35 @@
         document.getElementById('content-overview').innerText = data.overview;
         
         const blogBtn = document.getElementById('content-blog');
-        if (data.blog === "" || data.blog === null) {
-            blogBtn.style.display = "none";
-        } else {
-            blogBtn.style.display = "inline-block";
-            blogBtn.href = data.blog;
+        const iframeContainer = document.getElementById('blog-iframe-container');
+        const videoContainer = document.getElementById('video-container');
+
+        // शुरुआत में सब साफ़ रखें
+        blogBtn.style.display = "none";
+        iframeContainer.innerHTML = "";
+        videoContainer.innerHTML = "";
+
+        if (data.blog) {
+            // अगर प्रैक्टिस सेट है, तो सिर्फ बटन दिखाएँ
+            if (topic.includes("Practice Set")) {
+                blogBtn.style.display = "inline-block";
+                blogBtn.innerText = "प्रैक्टिस सेट शुरू करने के लिए यहाँ क्लिक करें";
+                blogBtn.href = data.blog;
+            } else {
+                // बाकी सभी विषयों (जैसे मौर्य वंश) के लिए सीधा कंटेंट (iframe) दिखाएँ
+                iframeContainer.innerHTML = `<iframe src="${data.blog}" width="100%" height="900px" style="border:none; margin-top:20px; border-radius:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></iframe>`;
+            }
         }
 
-        const container = document.getElementById('video-container');
-        container.innerHTML = "";
-        data.videos.forEach(v => {
-            container.innerHTML += `<iframe src="https://www.youtube.com/embed/${v}" allowfullscreen></iframe>`;
-        });
+        // वीडियो हमेशा सबसे अंत में आएँगे
+        if (data.videos && data.videos.length > 0) {
+            data.videos.forEach(v => {
+                if (v !== "to be available soon" && v !== "video id" && v !== "") {
+                    videoContainer.innerHTML += `<iframe src="https://www.youtube.com/embed/${v}" allowfullscreen></iframe>`;
+                }
+            });
+        }
+        
         showPage('topic-detail');
     }
 </script>
