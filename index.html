@@ -145,8 +145,11 @@
 
     async function loadData() {
         try {
+            // News Data
             let res1 = await fetch("https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=News");
             let t1 = await res1.text();
+            if (t1.trim().startsWith("<")) throw new Error("Sheet is private or returned HTML");
+            
             let r1 = t1.split("\n");
             topNews = [];
             for(let i = 1; i < r1.length; i++) {
@@ -160,44 +163,51 @@
                     }
                 }
             }
-            renderNews();
+            if(topNews.length > 0) renderNews();
 
+            // Learning Data
             let res2 = await fetch("https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=Learning");
             let t2 = await res2.text();
-            let r2 = t2.split("\n");
-            learningList = [];
-            for(let i = 1; i < r2.length; i++) {
-                if(r2[i].trim() !== "") {
-                    let cols = r2[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if(cols[0] && cols[1] && cols[2]) {
-                        learningList.push({ 
-                            type: cols[0].replace(/^"|"$/g, "").trim(), 
-                            text: cols[1].replace(/^"|"$/g, "").trim(), 
-                            meaning: cols[2].replace(/^"|"$/g, "").trim() 
-                        });
+            if (!t2.trim().startsWith("<")) {
+                let r2 = t2.split("\n");
+                learningList = [];
+                for(let i = 1; i < r2.length; i++) {
+                    if(r2[i].trim() !== "") {
+                        let cols = r2[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                        if(cols[0] && cols[1] && cols[2]) {
+                            learningList.push({ 
+                                type: cols[0].replace(/^"|"$/g, "").trim(), 
+                                text: cols[1].replace(/^"|"$/g, "").trim(), 
+                                meaning: cols[2].replace(/^"|"$/g, "").trim() 
+                            });
+                        }
                     }
                 }
+                if(learningList.length > 0) displayRandomLearning();
             }
-            displayRandomLearning();
 
+            // QOTD Data
             let res3 = await fetch("https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=Question of the Day");
             let t3 = await res3.text();
-            let r3 = t3.split("\n");
-            qotdList = [];
-            for(let i = 1; i < r3.length; i++) {
-                if(r3[i].trim() !== "") {
-                    let cols = r3[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if(cols[0] && cols[1]) {
-                        qotdList.push({ 
-                            q: cols[0].replace(/^"|"$/g, "").trim(), 
-                            a: cols[1].replace(/^"|"$/g, "").trim() 
-                        });
+            if (!t3.trim().startsWith("<")) {
+                let r3 = t3.split("\n");
+                qotdList = [];
+                for(let i = 1; i < r3.length; i++) {
+                    if(r3[i].trim() !== "") {
+                        let cols = r3[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                        if(cols[0] && cols[1]) {
+                            qotdList.push({ 
+                                q: cols[0].replace(/^"|"$/g, "").trim(), 
+                                a: cols[1].replace(/^"|"$/g, "").trim() 
+                            });
+                        }
                     }
                 }
+                if(qotdList.length > 0) displayRandomQotd();
             }
-            displayRandomQotd();
         } catch(err) {
             console.log("Error loading sheet:", err);
+            document.getElementById("ticker-content").innerHTML = '<span class="ticker-item">डेटा लोड करने में त्रुटि। कृपया शीट की सेटिंग्स जांचें।</span>';
         }
     }
 
@@ -227,7 +237,7 @@
     function openNews(i) {
         let n = topNews[i];
         document.getElementById("content-title").innerText = "📰 " + n.title;
-        document.getElementById("native-content").innerHTML = "<p><b>ताज़ा खबर:</b></p><p>" + n.content + "</p>";
+        document.getElementById("native-content").innerHTML = "<p><b>ताज़ा खबर:</b></p><p>" + n.content + "</p>";
         showPage("topic-detail");
     }
 
