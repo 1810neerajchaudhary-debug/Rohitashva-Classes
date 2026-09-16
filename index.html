@@ -14,27 +14,34 @@
             --bg: #121212; --text-dark: #e0e0e0; --card-bg: #1e1e1e;
             --list-bg: #1e1e1e; --list-hover: #2d3436; --primary: #092a63;
         }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); padding-bottom: 80px; color: var(--text-dark); }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: var(--bg); padding-bottom: 80px; color: var(--text-dark); transition: background 0.3s, color 0.3s; }
         .progress-container { width: 100%; height: 5px; background: rgba(0,0,0,0.1); position: fixed; top: 0; z-index: 1100; }
-        .progress-bar { height: 5px; background: var(--accent); width: 0%; }
+        .progress-bar { height: 5px; background: var(--accent); width: 0%; transition: width 0.2s; }
         header { background: var(--primary); color: white; padding: 15px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; justify-content: center; align-items: center; margin-top: 5px; }
         .header-compact { padding: 10px 20px !important; justify-content: space-between; }
         .header-titles { text-align: center; }
         .header-compact .header-titles { text-align: left; flex-grow: 1; }
         header h1 { margin: 0; font-size: 26px; }
         .tagline { margin: 5px 0 0 0; font-size: 15px; font-weight: bold; color: #f1c40f; }
-        .news-ticker { display: flex; align-items: center; background: #fff; border-bottom: 2px solid var(--accent); font-size: 15px; position: relative; z-index: 9; }
+        
+        .news-ticker { display: flex; align-items: center; background: #fff; border-bottom: 2px solid var(--accent); font-size: 15px; position: relative; z-index: 9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         body.dark-mode .news-ticker { background: #1e1e1e; }
         .ticker-title { background: var(--accent); color: white; padding: 10px 20px; font-weight: bold; white-space: nowrap; }
         .ticker-wrap { overflow: hidden; flex-grow: 1; white-space: nowrap; padding: 10px 0; }
-        .ticker-move { display: inline-block; animation: ticker 35s linear infinite; padding-left: 100%; }
-        .ticker-item { display: inline-block; margin-right: 50px; cursor: pointer; font-weight: 600; }
+        .ticker-move { display: inline-block; animation: ticker 40s linear infinite; padding-left: 100%; }
+        .ticker-move:hover { animation-play-state: paused; }
+        .ticker-item { display: inline-block; margin-right: 50px; cursor: pointer; font-weight: 600; color: var(--text-dark); }
         .ticker-item:hover { color: var(--accent); text-decoration: underline; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
         .container { max-width: 1400px; margin: 15px auto; padding: 5px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; grid-auto-flow: dense; }
-        .card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 20px; border-radius: 16px; color: white; cursor: pointer; text-align: center; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-        .daily-learning-box, .qotd-box { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 16px; padding: 25px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; grid-column: span 1; position: relative; }
+        .card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 20px; border-radius: 16px; color: white; cursor: pointer; text-align: center; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card-icon { font-size: 40px; margin-bottom: 12px; }
+        .card-title { font-size: 19px; font-weight: bold; }
+
+        .daily-learning-box, .qotd-box { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 16px; padding: 25px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; grid-column: span 1; position: relative; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .daily-learning-box { border-bottom: 5px solid #f1c40f; }
         .qotd-box { border-bottom: 5px solid #2ecc71; }
         @media (min-width: 768px) { 
@@ -47,23 +54,19 @@
         .dl-meaning { font-size: 16px; opacity: 0.95; font-style: italic; background: rgba(0,0,0,0.2); padding: 8px 12px; border-radius: 8px; }
         .qotd-answer { font-size: 16px; font-weight: bold; background: rgba(46, 204, 113, 0.2); padding: 8px 12px; border-radius: 8px; display: none; margin-top: 10px; }
         .show-ans-btn { background: #2ecc71; color: white; border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 8px; }
-        .refresh-btn { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display:flex; justify-content:center; align-items:center; }
+        .refresh-btn { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
+        .refresh-btn:hover { background: #f1c40f; color: #2c3e50; transform: rotate(180deg); }
+
         .history { background: linear-gradient(135deg, #e74c3c, #c0392b); } .geography { background: linear-gradient(135deg, #2ecc71, #27ae60); } .polity { background: linear-gradient(135deg, #3498db, #2980b9); } .economics { background: linear-gradient(135deg, #9b59b6, #8e44ad); } .science { background: linear-gradient(135deg, #1abc9c, #16a085); } .uk { background: linear-gradient(135deg, #e67e22, #d35400); } .hindi { background: linear-gradient(135deg, #34495e, #2c3e50); } .math { background: linear-gradient(135deg, #f1c40f, #f39c12); } .reasoning { background: linear-gradient(135deg, #e84393, #d63031); } .ca { background: linear-gradient(135deg, #0984e3, #0097e6); } .practice { background: linear-gradient(135deg, #636e72, #2d3436); }
+
         .page { display: none; }
         .active { display: block; }
         ul.list { list-style: none; padding: 0; }
-        ul.list li { background: var(--list-bg); margin: 10px 0; padding: 15px 20px; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--accent); font-weight: 600; }
-        .inner-page-header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; }
+        ul.list li { background: var(--list-bg); margin: 10px 0; padding: 15px 20px; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--accent); font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .inner-page-header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .content-title-box { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         .back-btn { cursor: pointer; padding: 8px 18px; background: var(--bg); border-radius: 8px; font-weight: bold; border: 1px solid rgba(0,0,0,0.1); }
-        #blog-iframe-container { width: 100%; background: var(--card-bg); padding: 25px; border-radius: 12px; line-height: 1.8; }
-        .magic-menu-container { position: fixed; bottom: 25px; right: 25px; z-index: 1200; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 15px; }
-        .magic-btn { background: var(--accent); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; cursor: pointer; border: none; }
-        .magic-options { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; opacity: 0; visibility: hidden; transition: 0.3s; }
-        .magic-options.show { opacity: 1; visibility: visible; }
-        .option-group { display: flex; align-items: center; gap: 10px; background: var(--card-bg); padding: 8px 15px; border-radius: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .option-btn { background: transparent; border: none; font-weight: bold; cursor: pointer; }
-        .home-special-btn { background: var(--primary); color: white !important; padding: 8px 18px; border-radius: 20px; }
+        #blog-iframe-container { width: 100%; background: var(--card-bg); padding: 25px; border-radius: 12px; line-height: 1.8; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
@@ -79,7 +82,7 @@
     <div class="ticker-title">🔥 Current Affairs</div>
     <div class="ticker-wrap">
         <div class="ticker-move" id="ticker-content">
-            <span class="ticker-item">लोड हो रहा है...</span>
+            <span class="ticker-item">करंट अफेयर्स लोड हो रहे हैं...</span>
         </div>
     </div>
 </div>
@@ -91,7 +94,7 @@
             <div class="card geography" onclick="loadSections('Geography')"><div class="card-icon">🌍</div><div class="card-title">Geography</div></div>
             
             <div class="daily-learning-box">
-                <button class="refresh-btn" onclick="displayRandomLearning()">🔄</button>
+                <button class="refresh-btn" onclick="displayRandomLearning()" title="नया बदलें">🔄</button>
                 <div id="daily-learning-box"><div class="dl-text">लोड हो रहा है...</div></div>
             </div>
 
@@ -101,7 +104,7 @@
             <div class="card uk" onclick="loadSections('Uttarakhand Special')"><div class="card-icon">🏔️</div><div class="card-title">Uttarakhand Special</div></div>
             
             <div class="qotd-box">
-                <button class="refresh-btn" onclick="displayRandomQotd()">🔄</button>
+                <button class="refresh-btn" onclick="displayRandomQotd()" title="नया सवाल">🔄</button>
                 <div id="qotd-box-content"><div class="dl-text">लोड हो रहा है...</div></div>
             </div>
 
@@ -158,33 +161,43 @@
     }
 
     function parseNewsCsv(csv) {
-        let rows = csv.split('\n').map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+        let rows = csv.split('\n').map(r => r.split(','));
         topCurrentAffairs = [];
         for(let i = 1; i < rows.length; i++) {
             if(rows[i][0] && rows[i][1]) {
-                topCurrentAffairs.push({ title: rows[i][0].replace(/^"|"$/g, '').trim(), content: rows[i][1].replace(/^"|"$/g, '').trim() });
+                topCurrentAffairs.push({ 
+                    title: rows[i][0].replace(/['"]+/g, '').trim(), 
+                    content: rows[i][1].replace(/['"]+/g, '').trim() 
+                });
             }
         }
         loadNewsTicker();
     }
 
     function parseLearningCsv(csv) {
-        let rows = csv.split('\n').map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+        let rows = csv.split('\n').map(r => r.split(','));
         dailyLearningData = [];
         for(let i = 1; i < rows.length; i++) {
             if(rows[i][0] && rows[i][1] && rows[i][2]) {
-                dailyLearningData.push({ type: rows[i][0].replace(/^"|"$/g, '').trim(), text: rows[i][1].replace(/^"|"$/g, '').trim(), meaning: rows[i][2].replace(/^"|"$/g, '').trim() });
+                dailyLearningData.push({ 
+                    type: rows[i][0].replace(/['"]+/g, '').trim(), 
+                    text: rows[i][1].replace(/['"]+/g, '').trim(), 
+                    meaning: rows[i][2].replace(/['"]+/g, '').trim() 
+                });
             }
         }
         displayRandomLearning();
     }
 
     function parseQotdCsv(csv) {
-        let rows = csv.split('\n').map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+        let rows = csv.split('\n').map(r => r.split(','));
         qotdData = [];
         for(let i = 1; i < rows.length; i++) {
             if(rows[i][0] && rows[i][1]) {
-                qotdData.push({ q: rows[i][0].replace(/^"|"$/g, '').trim(), a: rows[i][1].replace(/^"|"$/g, '').trim() });
+                qotdData.push({ 
+                    q: rows[i][0].replace(/['"]+/g, '').trim(), 
+                    a: rows[i][1].replace(/['"]+/g, '').trim() 
+                });
             }
         }
         displayRandomQotd();
@@ -201,14 +214,14 @@
         const box = document.getElementById('daily-learning-box');
         if(!box || !dailyLearningData.length) return;
         let item = dailyLearningData[Math.floor(Math.random() * dailyLearningData.length)];
-        box.innerHTML = `<button class="refresh-btn" onclick="displayRandomLearning()">🔄</button><div class="dl-badge">${item.type}</div><div class="dl-text">${item.text}</div><div class="dl-meaning">अर्थ: ${item.meaning}</div>`;
+        box.innerHTML = `<button class="refresh-btn" onclick="displayRandomLearning()" title="नया बदलें">🔄</button><div class="dl-badge">${item.type}</div><div class="dl-text">${item.text}</div><div class="dl-meaning">अर्थ: ${item.meaning}</div>`;
     }
 
     function displayRandomQotd() {
         const box = document.getElementById('qotd-box-content');
         if(!box || !qotdData.length) return;
         let item = qotdData[Math.floor(Math.random() * qotdData.length)];
-        box.innerHTML = `<button class="refresh-btn" onclick="displayRandomQotd()">🔄</button><div class="qotd-badge">🤔 आज का सवाल</div><div class="dl-text" style="font-size:18px;">${item.q}</div><button class="show-ans-btn" onclick="document.getElementById('q-ans').style.display='block';this.style.display='none';">उत्तर देखें</button><div id="q-ans" class="qotd-answer">${item.a}</div>`;
+        box.innerHTML = `<button class="refresh-btn" onclick="displayRandomQotd()" title="नया सवाल">🔄</button><div class="qotd-badge">🤔 आज का सवाल</div><div class="dl-text" style="font-size:18px;">${item.q}</div><button class="show-ans-btn" onclick="document.getElementById('q-ans').style.display='block';this.style.display='none';">उत्तर देखें</button><div id="q-ans" class="qotd-answer">${item.a}</div>`;
     }
 
     function openNews(i) {
