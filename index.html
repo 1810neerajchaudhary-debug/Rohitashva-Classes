@@ -21,14 +21,13 @@
         .progress-container { width: 100%; height: 5px; background: rgba(0,0,0,0.1); position: fixed; top: 0; z-index: 1100; }
         .progress-bar { height: 5px; background: var(--accent); width: 0%; transition: width 0.2s; }
 
-        header { background: var(--primary); color: white; padding: 15px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); transition: 0.3s; position: relative; z-index: 10; display: flex; justify-content: center; align-items: center; margin-top: 5px; }
+        header { background: var(--primary); color: white; padding: 15px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); transition: 0.3s; position: relative; z-index: 10; display: flex; justify-content: center; align-items: center; margin-top: 5px; cursor: pointer; user-select: none; }
         .header-compact { padding: 10px 20px !important; justify-content: space-between; }
         .header-titles { text-align: center; }
         .header-compact .header-titles { text-align: left; flex-grow: 1; }
         header h1 { margin: 0; font-size: 26px; letter-spacing: 1px; }
         .tagline { margin: 5px 0 0 0; font-size: 20px; font-weight: 800; opacity: 1; color: #f1c40f; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
-        /* --- न्यूज़ टिकर क्लिक फिक्स (Z-Index Increased) --- */
         .news-ticker { display: flex; align-items: center; background: #fff; border-bottom: 2px solid var(--accent); padding: 0; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; z-index: 99; }
         body.dark-mode .news-ticker { background: #1e1e1e; border-bottom: 2px solid var(--accent); }
         .ticker-title { background: var(--accent); color: white; padding: 10px 20px; font-weight: bold; white-space: nowrap; z-index: 100; display: flex; align-items: center; gap: 8px; box-shadow: 2px 0 5px rgba(0,0,0,0.2); }
@@ -46,25 +45,45 @@
         .container { max-width: 1400px; margin: 15px auto; padding: 5px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; grid-auto-flow: dense; }
         
-        .card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 20px; border-radius: 16px; color: white; cursor: pointer; text-align: center; transition: all 0.3s ease; box-shadow: 0 6px 12px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        .card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 15px; border-radius: 16px; color: white; cursor: pointer; text-align: center; transition: all 0.3s ease; box-shadow: 0 6px 12px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
         .card::before { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: 0.5s; }
         .card:hover::before { left: 150%; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); }
-        .card-icon { font-size: 40px; margin-bottom: 12px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); }
-        .card-title { font-size: 19px; font-weight: bold; letter-spacing: 0.5px; }
+        .card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 24px rgba(0,0,0,0.2); }
+        
+        /* 🚀 सुपर लार्ज आइकन्स (Super Large Icons) */
+        .card-icon { font-size: 65px; margin-bottom: 15px; filter: drop-shadow(2px 5px 6px rgba(0,0,0,0.3)); transition: transform 0.3s ease; }
+        .card:hover .card-icon { transform: scale(1.15); }
+        .card-title { font-size: 19px; font-weight: bold; letter-spacing: 0.5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
 
-        .daily-learning-box { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border-radius: 25px; padding: 35px 20px 20px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 0 0 2px rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: center; align-items: center; grid-column: span 1; position: relative; height: fit-content; margin-top: 15px; transition: transform 0.3s ease; }
+        /* --- 💡 दिमाग की बत्ती (मुहावरे) --- */
+        .daily-learning-box { 
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); 
+            color: white; border-radius: 25px; padding: 35px 20px 20px 20px; text-align: center; 
+            box-shadow: 0 0 25px rgba(253, 187, 45, 0.4), inset 0 0 10px rgba(255,255,255,0.2); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            grid-column: span 1; position: relative; height: fit-content; margin-top: 15px; 
+            border-top: 5px solid #f1c40f; transition: transform 0.3s ease;
+        }
         @media (min-width: 768px) { .daily-learning-box, .qod-box { grid-column: span 2; } }
-        .dl-badge { background: #f1c40f; color: #2c3e50; padding: 6px 20px; border-radius: 25px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; position: absolute; top: -15px; box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4); }
-        .dl-text { font-size: 22px; font-weight: 800; margin: 0 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); line-height: 1.4; }
-        .dl-meaning { font-size: 16px; opacity: 0.95; font-style: italic; background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 12px; width: 95%; box-sizing: border-box; }
+        .dl-badge { background: #f1c40f; color: #2c3e50; padding: 6px 20px; border-radius: 25px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; position: absolute; top: -18px; box-shadow: 0 4px 15px rgba(241, 196, 15, 0.6); border: 2px solid white; }
+        .dl-text { font-size: 22px; font-weight: 800; margin: 5px 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); line-height: 1.4; }
+        .dl-meaning { font-size: 16px; opacity: 0.95; font-style: italic; background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: 12px; width: 95%; box-sizing: border-box; border-left: 3px solid #f1c40f; }
 
-        .qod-box { background: linear-gradient(135deg, #ff7e5f, #feb47b); color: white; border-radius: 25px; padding: 35px 20px 20px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 0 0 2px rgba(255,255,255,0.2); display: flex; flex-direction: column; justify-content: center; align-items: center; grid-column: span 1; position: relative; height: fit-content; margin-top: 15px; transition: transform 0.3s ease; }
-        .qod-badge { background: #fff; color: #ff7e5f; padding: 6px 20px; border-radius: 25px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; position: absolute; top: -15px; box-shadow: 0 4px 10px rgba(255,255,255,0.4); }
-        .qod-question { font-size: 20px; font-weight: 800; margin: 0 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); line-height: 1.4; }
+        /* --- 💭 सोचो और बताओ (प्रश्न) --- */
+        .qod-box { 
+            background: linear-gradient(135deg, #00c6ff, #0072ff); 
+            color: white; border-radius: 40px 40px 40px 5px; 
+            padding: 35px 20px 20px 20px; text-align: center; 
+            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.3), inset 0 0 15px rgba(255,255,255,0.3); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            grid-column: span 1; position: relative; height: fit-content; margin-top: 15px; 
+            border: 3px solid rgba(255,255,255,0.4); transition: transform 0.3s ease;
+        }
+        .qod-badge { background: #fff; color: #0072ff; padding: 6px 20px; border-radius: 25px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; position: absolute; top: -18px; box-shadow: 0 4px 10px rgba(255,255,255,0.5); border: 2px solid #0072ff; }
+        .qod-question { font-size: 20px; font-weight: 800; margin: 5px 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); line-height: 1.4; }
         .qod-answer { font-size: 17px; font-weight: bold; background: rgba(255,255,255,0.25); padding: 12px; border-radius: 12px; display: none; border-left: 4px solid #fff; width: 95%; margin-top: 10px; animation: slideDown 0.3s ease; box-sizing: border-box; }
-        .reveal-btn { background: #fff; color: #ff7e5f; border: none; padding: 8px 20px; border-radius: 25px; font-weight: 900; font-size: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 5px; }
-        .reveal-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+        .reveal-btn { background: #fff; color: #0072ff; border: none; padding: 8px 20px; border-radius: 25px; font-weight: 900; font-size: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-top: 5px; }
+        .reveal-btn:hover { background: #e0f7ff; transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         
         .history { background: linear-gradient(135deg, #e74c3c, #c0392b); } .geography { background: linear-gradient(135deg, #2ecc71, #27ae60); } .polity { background: linear-gradient(135deg, #3498db, #2980b9); } .economics { background: linear-gradient(135deg, #9b59b6, #8e44ad); } .science { background: linear-gradient(135deg, #1abc9c, #16a085); } .uk { background: linear-gradient(135deg, #e67e22, #d35400); } .hindi { background: linear-gradient(135deg, #34495e, #2c3e50); } .math { background: linear-gradient(135deg, #f1c40f, #f39c12); } .reasoning { background: linear-gradient(135deg, #e84393, #d63031); } .ca { background: linear-gradient(135deg, #0984e3, #0097e6); } .practice { background: linear-gradient(135deg, #636e72, #2d3436); }
@@ -92,7 +111,9 @@
 
         .loader { border: 4px solid var(--list-bg); border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .visit-counter { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 2px dashed #cbd5e1; }
+        
+        /* विज़िटर काउंटर */
+        .visit-counter { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 2px dashed #cbd5e1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         .magic-menu-container { position: fixed; bottom: 25px; right: 25px; z-index: 1200; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 15px; }
         .magic-btn { background: var(--accent); color: white; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32px; cursor: pointer; box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4); transition: transform 0.3s ease, background 0.3s; border: none; outline: none; }
@@ -131,7 +152,8 @@
 
 <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
 
-<header id="main-header">
+<!-- एडमिन मोड के लिए हेडर पर onclick इवेंट लगाया गया है -->
+<header id="main-header" onclick="makeAdmin()">
     <div class="header-titles">
         <h1>Rohitashva Classes</h1>
         <p class="tagline">उज्ज्वल आशा, बेहतर भविष्य 🏹</p>
@@ -181,9 +203,20 @@
         </div>
 
         <div class="grid">
-            <div class="card history" onclick="loadSections('History')"><div class="card-icon">🏛️</div><div class="card-title">History</div></div>
-            <div class="card geography" onclick="loadSections('Geography')"><div class="card-icon">🌍</div><div class="card-title">Geography</div></div>
+            <!-- 1. सभी विषय (Subjects) बड़े और आकर्षक आइकन्स के साथ -->
+            <div class="card history" onclick="loadSections('History')"><div class="card-icon">📜</div><div class="card-title">History</div></div>
+            <div class="card geography" onclick="loadSections('Geography')"><div class="card-icon">🗺️</div><div class="card-title">Geography</div></div>
+            <div class="card polity" onclick="loadTopics('Polity', 'homepage')"><div class="card-icon">⚖️</div><div class="card-title">Polity</div></div>
+            <div class="card economics" onclick="loadTopics('Economics', 'homepage')"><div class="card-icon">📊</div><div class="card-title">Economics</div></div>
+            <div class="card science" onclick="loadSections('Science')"><div class="card-icon">🧬</div><div class="card-title">Science</div></div>
+            <div class="card uk" onclick="loadSections('Uttarakhand Special')"><div class="card-icon">🛕</div><div class="card-title">Uttarakhand Special</div></div>
+            <div class="card hindi" onclick="loadTopics('General Hindi', 'homepage')"><div class="card-icon">✍️</div><div class="card-title">General Hindi</div></div>
+            <div class="card reasoning" onclick="loadTopics('Reasoning', 'homepage')"><div class="card-icon">🧩</div><div class="card-title">Reasoning</div></div>
+            <div class="card math" onclick="loadTopics('Mathematics', 'homepage')"><div class="card-icon">🧮</div><div class="card-title">Mathematics</div></div>
+            <div class="card ca" onclick="loadTopics('Current Affairs', 'homepage')"><div class="card-icon">🌐</div><div class="card-title">Current Affairs</div></div>
+            <div class="card practice" onclick="loadTopics('PYQ Practice Sets', 'homepage')"><div class="card-icon">🎯</div><div class="card-title">PYQ Practice Sets</div></div>
             
+            <!-- 2. डिज़ाइन्ड बॉक्सेस सबसे नीचे -->
             <div class="daily-learning-box" id="daily-learning-box">
                 <div class="loader" style="border-color: #fff; border-top-color: #f1c40f;"></div>
                 <p style="margin-top:10px;">ज्ञान लोड हो रहा है...</p>
@@ -193,21 +226,15 @@
                 <div class="loader" style="border-color: #fff; border-top-color: #2ecc71;"></div>
                 <p style="margin-top:10px;">प्रश्न लोड हो रहा है...</p>
             </div>
-
-            <div class="card polity" onclick="loadTopics('Polity', 'homepage')"><div class="card-icon">⚖️</div><div class="card-title">Polity</div></div>
-            <div class="card economics" onclick="loadTopics('Economics', 'homepage')"><div class="card-icon">📈</div><div class="card-title">Economics</div></div>
-            <div class="card science" onclick="loadSections('Science')"><div class="card-icon">🔬</div><div class="card-title">Science</div></div>
-            <div class="card uk" onclick="loadSections('Uttarakhand Special')"><div class="card-icon">🏔️</div><div class="card-title">Uttarakhand Special</div></div>
-            <div class="card hindi" onclick="loadTopics('General Hindi', 'homepage')"><div class="card-icon">अ</div><div class="card-title">General Hindi</div></div>
-            <div class="card reasoning" onclick="loadTopics('Reasoning', 'homepage')"><div class="card-icon">🧠</div><div class="card-title">Reasoning</div></div>
-            <div class="card math" onclick="loadTopics('Mathematics', 'homepage')"><div class="card-icon">➗</div><div class="card-title">Mathematics</div></div>
-            <div class="card ca" onclick="loadTopics('Current Affairs', 'homepage')"><div class="card-icon">📰</div><div class="card-title">Current Affairs</div></div>
-            <div class="card practice" onclick="loadTopics('PYQ Practice Sets', 'homepage')"><div class="card-icon">📝</div><div class="card-title">PYQ Practice Sets</div></div>
         </div>
         
+        <!-- नया वर्किंग विज़िटर काउंटर और एडमिन स्टेटस -->
         <div class="visit-counter">
             <p style="font-weight: bold; font-size: 18px; margin-bottom: 10px;">📊 Total Website Visits</p>
-            <img src="https://profile-counter.glitch.me/rohitashvaclasses/count.svg" alt="Visitor Count">
+            <div id="counter-wrapper">
+                <!-- काउंटर इमेज JS से लोड होगी -->
+            </div>
+            <p id="admin-status" style="display:none; color: #2ecc71; font-size: 14px; margin-top: 8px; font-weight: bold;">🛡️ Admin Mode Active (Your visits are hidden)</p>
         </div>
     </div>
 
@@ -241,6 +268,38 @@
 </div>
 
 <script>
+    // ============================================================================
+    // 🛡️ SECRET ADMIN MODE (विज़िटर काउंटर हैक)
+    // ============================================================================
+    let adminClicks = 0;
+    function makeAdmin() {
+        adminClicks++;
+        if(adminClicks === 5) {
+            if(localStorage.getItem('isAdmin')) {
+                localStorage.removeItem('isAdmin');
+                alert("Admin Mode OFF: नीरज, अब से आपकी विज़िट्स काउंट होंगी।");
+            } else {
+                localStorage.setItem('isAdmin', 'true');
+                alert("Admin Mode ON: नीरज, अब से वेबसाइट खुलने पर आपका व्यू काउंट नहीं होगा!");
+            }
+            location.reload();
+        }
+    }
+
+    function loadVisitorCounter() {
+        const wrapper = document.getElementById('counter-wrapper');
+        const adminStatus = document.getElementById('admin-status');
+        
+        if(localStorage.getItem('isAdmin') === 'true') {
+            // एडमिन को काउंटर लोड नहीं करना है, ताकि नंबर न बढ़े
+            wrapper.innerHTML = `<img src="https://img.shields.io/badge/Visits-Hidden%20for%20Admin-blue?style=flat-square" style="height: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;">`;
+            adminStatus.style.display = 'block';
+        } else {
+            // असली दुनिया के लिए असली काउंटर
+            wrapper.innerHTML = `<img src="https://api.visitorbadge.io/api/visitors?path=rohitashvaclasses.index&countColor=%23e74c3c&style=flat-square" alt="Visitor Count" style="height: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;">`;
+        }
+    }
+
     // ============================================================================
     // 🚀 BULLETPROOF GOOGLE SHEETS API & CLICK FIX
     // ============================================================================
@@ -328,7 +387,7 @@
         }
         const item = dailyLearningData[Math.floor(Math.random() * dailyLearningData.length)];
         box.innerHTML = `
-            <div class="dl-badge">${item.type}</div>
+            <div class="dl-badge">💡 दिमागी बत्ती (${item.type})</div>
             <div class="dl-text">${item.text}</div>
             <div class="dl-meaning">अर्थ: ${item.meaning}</div>
         `;
@@ -343,7 +402,7 @@
         }
         const item = qodData[Math.floor(Math.random() * qodData.length)];
         box.innerHTML = `
-            <div class="qod-badge">🤔 आज का प्रश्न</div>
+            <div class="qod-badge">💭 सोचो और बताओ</div>
             <div class="qod-question">${item.question}</div>
             <button class="reveal-btn" onclick="revealAnswer(this)">उत्तर देखें 👁️</button>
             <div class="qod-answer">${item.answer}</div>
@@ -355,7 +414,6 @@
         btn.nextElementSibling.style.display = 'block';
     }
 
-    // 🚀 करंट अफेयर्स क्लिक फिक्स (Safe String Conversion)
     window.openNews = function(index) {
         try {
             const news = topCurrentAffairs[index];
@@ -367,7 +425,6 @@
             
             document.getElementById('detail-back-btn').onclick = function() { showPage('homepage'); };
             
-            // सेफ रिप्लेसमेंट (ताकि क्रैश ना हो)
             const rawContent = news.content || "कंटेंट उपलब्ध नहीं है।";
             const formattedContent = String(rawContent).replace(/\n/g, "<br><br>");
             
@@ -417,7 +474,6 @@
         document.getElementById("myBar").style.width = scrolled + "%";
     };
 
-    // 🚀 वॉइस मैजिक फिक्स (परफेक्ट कन्नु और मोटू)
     let availableVoices = [];
     function loadVoices() {
         availableVoices = speechSynthesis.getVoices();
@@ -439,10 +495,10 @@
         opt1.selected = true; 
         voiceSelect.appendChild(opt1);
         
-        // 2. कन्नु (क्यूट चाइल्ड पिच 1.35 जो फटेगी नहीं)
+        // 2. कन्नु (प्यारी सुरीली आवाज़ - पिच 1.15 जो फटेगी नहीं)
         let opt2 = document.createElement('option'); 
-        opt2.textContent = "कन्नु (Female)"; 
-        opt2.value = femaleVoice.name + "|1.35"; 
+        opt2.textContent = "कन्नु (Sweet Female)"; 
+        opt2.value = femaleVoice.name + "|1.15"; 
         voiceSelect.appendChild(opt2);
         
         // 3. मोटू (मेल आवाज़ फिक्स)
@@ -545,6 +601,7 @@
             document.getElementById('last-read-banner').style.display = 'flex';
         }
         
+        loadVisitorCounter();
         fetchGoogleSheetsData();
     };
 
