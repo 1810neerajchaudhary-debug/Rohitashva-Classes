@@ -26,8 +26,6 @@
         .header-titles { text-align: center; }
         .header-compact .header-titles { text-align: left; flex-grow: 1; }
         header h1 { margin: 0; font-size: 26px; letter-spacing: 1px; }
-        
-        /* टैगलाइन को बड़ा और आकर्षक कर दिया गया है */
         .tagline { margin: 5px 0 0 0; font-size: 20px; font-weight: 800; opacity: 1; color: #f1c40f; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
         .news-ticker { display: flex; align-items: center; background: #fff; border-bottom: 2px solid var(--accent); padding: 0; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; z-index: 9; }
@@ -45,7 +43,8 @@
         .resume-btn:hover { transform: scale(1.05); }
 
         .container { max-width: 1400px; margin: 15px auto; padding: 5px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; grid-auto-flow: dense; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; grid-auto-flow: dense; }
+        
         .card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 20px; border-radius: 16px; color: white; cursor: pointer; text-align: center; transition: all 0.3s ease; box-shadow: 0 6px 12px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
         .card::before { content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: 0.5s; }
         .card:hover::before { left: 150%; }
@@ -53,19 +52,56 @@
         .card-icon { font-size: 40px; margin-bottom: 12px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); }
         .card-title { font-size: 19px; font-weight: bold; letter-spacing: 0.5px; }
 
-        .daily-learning-box { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 16px; padding: 25px 20px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 5px solid #f1c40f; grid-column: span 1; min-height: 150px;}
-        @media (min-width: 768px) { .daily-learning-box { grid-column: span 2; grid-row: span 2; } }
-        .dl-badge { background: #f1c40f; color: #2c3e50; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .dl-text { font-size: 26px; font-weight: 800; margin: 5px 0 15px 0; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); line-height: 1.3; }
-        .dl-meaning { font-size: 17px; opacity: 0.95; font-style: italic; background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 8px; display: inline-block; border-left: 4px solid #f1c40f; }
+        /* --- नया ऑटो-साइज़ (Auto-Resize) डेली लर्निंग बॉक्स --- */
+        .daily-learning-box { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            color: white; 
+            border-radius: 25px; 
+            padding: 35px 20px 20px 20px; /* टॉप पर फ्लोटिंग बैज के लिए जगह */
+            text-align: center; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 0 0 2px rgba(255,255,255,0.1); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            grid-column: span 1; 
+            position: relative; 
+            height: fit-content; /* कंटेंट के हिसाब से ऑटोमेटिक साइज़ */
+            margin-top: 15px; 
+            transition: transform 0.3s ease;
+        }
+        @media (min-width: 768px) { .daily-learning-box, .qod-box { grid-column: span 2; } }
+        
+        /* फ्लोटिंग बैज */
+        .dl-badge { 
+            background: #f1c40f; color: #2c3e50; padding: 6px 20px; border-radius: 25px; 
+            font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; 
+            position: absolute; top: -15px; box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4); 
+        }
+        .dl-text { font-size: 22px; font-weight: 800; margin: 0 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); line-height: 1.4; }
+        .dl-meaning { font-size: 16px; opacity: 0.95; font-style: italic; background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 12px; width: 95%; box-sizing: border-box; }
 
-        .qod-box { background: linear-gradient(135deg, #8e44ad, #9b59b6); color: white; border-radius: 16px; padding: 25px 20px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 5px solid #2ecc71; grid-column: span 1; min-height: 150px; }
-        @media (min-width: 768px) { .qod-box { grid-column: span 2; grid-row: span 2; } }
-        .qod-badge { background: #2ecc71; color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .qod-question { font-size: 22px; font-weight: 800; margin: 5px 0 15px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); line-height: 1.4; }
-        .qod-answer { font-size: 18px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 12px 15px; border-radius: 8px; display: none; border-left: 4px solid #2ecc71; width: 90%; margin-top: 10px; animation: slideDown 0.3s ease; }
-        .reveal-btn { background: #2ecc71; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .reveal-btn:hover { background: #27ae60; transform: scale(1.05); }
+        /* --- नया ऑटो-साइज़ (Auto-Resize) 'आज का प्रश्न' बॉक्स --- */
+        .qod-box { 
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); 
+            color: white; border-radius: 25px; 
+            padding: 35px 20px 20px 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 0 0 2px rgba(255,255,255,0.2); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            grid-column: span 1; 
+            position: relative; 
+            height: fit-content; 
+            margin-top: 15px; 
+            transition: transform 0.3s ease;
+        }
+        /* फ्लोटिंग बैज */
+        .qod-badge { 
+            background: #fff; color: #ff7e5f; padding: 6px 20px; border-radius: 25px; 
+            font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; 
+            position: absolute; top: -15px; box-shadow: 0 4px 10px rgba(255,255,255,0.4); 
+        }
+        .qod-question { font-size: 20px; font-weight: 800; margin: 0 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); line-height: 1.4; }
+        .qod-answer { font-size: 17px; font-weight: bold; background: rgba(255,255,255,0.25); padding: 12px; border-radius: 12px; display: none; border-left: 4px solid #fff; width: 95%; margin-top: 10px; animation: slideDown 0.3s ease; box-sizing: border-box; }
+        .reveal-btn { background: #fff; color: #ff7e5f; border: none; padding: 8px 20px; border-radius: 25px; font-weight: 900; font-size: 15px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 5px; }
+        .reveal-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         
         .history { background: linear-gradient(135deg, #e74c3c, #c0392b); } .geography { background: linear-gradient(135deg, #2ecc71, #27ae60); } .polity { background: linear-gradient(135deg, #3498db, #2980b9); } .economics { background: linear-gradient(135deg, #9b59b6, #8e44ad); } .science { background: linear-gradient(135deg, #1abc9c, #16a085); } .uk { background: linear-gradient(135deg, #e67e22, #d35400); } .hindi { background: linear-gradient(135deg, #34495e, #2c3e50); } .math { background: linear-gradient(135deg, #f1c40f, #f39c12); } .reasoning { background: linear-gradient(135deg, #e84393, #d63031); } .ca { background: linear-gradient(135deg, #0984e3, #0097e6); } .practice { background: linear-gradient(135deg, #636e72, #2d3436); }
@@ -185,11 +221,13 @@
             <div class="card history" onclick="loadSections('History')"><div class="card-icon">🏛️</div><div class="card-title">History</div></div>
             <div class="card geography" onclick="loadSections('Geography')"><div class="card-icon">🌍</div><div class="card-title">Geography</div></div>
             
+            <!-- ऑटो-साइज़ और डिज़ाइन्ड डेली लर्निंग बॉक्स -->
             <div class="daily-learning-box" id="daily-learning-box">
                 <div class="loader" style="border-color: #fff; border-top-color: #f1c40f;"></div>
                 <p style="margin-top:10px;">ज्ञान लोड हो रहा है...</p>
             </div>
 
+            <!-- ऑटो-साइज़ और डिज़ाइन्ड QOD बॉक्स -->
             <div class="qod-box" id="qod-box">
                 <div class="loader" style="border-color: #fff; border-top-color: #2ecc71;"></div>
                 <p style="margin-top:10px;">प्रश्न लोड हो रहा है...</p>
@@ -230,7 +268,7 @@
 
     <div id="topic-detail" class="page">
         <div class="inner-page-header" style="margin-bottom: 15px;">
-            <div class="back-btn" onclick="showPage('topic-list-page')" style="flex-shrink: 0; margin-right: 15px;">← Back to List</div>
+            <div class="back-btn" onclick="showPage('topic-list-page')" id="detail-back-btn" style="flex-shrink: 0; margin-right: 15px;">← Back to List</div>
             <p id="content-overview" style="margin: 0; font-size: 16px; font-style: italic; opacity: 0.8;"></p>
         </div>
         <div class="content-title-box">
@@ -256,7 +294,6 @@
         const qodUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('Question of the Day')}`;
 
         try {
-            // 1. Fetch News
             const newsRes = await fetch(newsUrl);
             const newsText = await newsRes.text();
             if(newsText.includes("google.visualization.Query.setResponse")) {
@@ -270,7 +307,6 @@
                 }
             }
 
-            // 2. Fetch Learning
             const learnRes = await fetch(learningUrl);
             const learnText = await learnRes.text();
             if(learnText.includes("google.visualization.Query.setResponse")) {
@@ -285,7 +321,6 @@
                 }
             }
 
-            // 3. Fetch Question of the Day
             const qodRes = await fetch(qodUrl);
             const qodText = await qodRes.text();
             if(qodText.includes("google.visualization.Query.setResponse")) {
@@ -365,12 +400,15 @@
         document.getElementById('content-overview').style.display = 'none';
         document.getElementById('video-container').innerHTML = '';
         
-        document.getElementById('blog-iframe-container').style.display = 'block';
+        document.getElementById('detail-back-btn').onclick = function() { showPage('homepage'); };
+        
         const formattedContent = news.content.replace(/\n/g, "<br><br>");
-        document.getElementById('native-content').innerHTML = `
-            <div style="font-size: 19px; line-height: 1.8; padding: 10px; color: var(--text-dark);">
-                <p><b>ताज़ा खबर:</b></p>
-                <p>${formattedContent}</p>
+        document.getElementById('blog-iframe-container').style.display = 'block';
+        document.getElementById('blog-iframe-container').innerHTML = `
+            <div id="native-content">
+                <div style="font-size: 18px; line-height: 1.8; color: var(--text-dark);">
+                    ${formattedContent}
+                </div>
             </div>
         `;
         
@@ -416,18 +454,28 @@
         let hindiVoices = availableVoices.filter(v => v.lang.startsWith('hi') || v.name.toLowerCase().includes('hindi'));
         if (hindiVoices.length === 0) { voiceSelect.innerHTML = '<option value="">No Hindi Voice</option>'; return; }
         
-        // असली मेल (Male) आवाज़ ढूंढने की कोशिश
-        let realMaleVoice = hindiVoices.find(v => v.name.toLowerCase().includes('hemant') || v.name.toLowerCase().includes('male'));
-        let baseVoice = hindiVoices[0];
+        let maleVoice = hindiVoices.find(v => v.name.toLowerCase().includes('hemant') || v.name.toLowerCase().includes('male'));
+        let femaleVoice = hindiVoices.find(v => v !== maleVoice) || hindiVoices[0];
+        if(!maleVoice) maleVoice = hindiVoices[0];
 
-        // 1. रेनू (डिफ़ॉल्ट)
-        let opt1 = document.createElement('option'); opt1.textContent = "रेनू (Female)"; opt1.value = baseVoice.name + "|1.0"; opt1.selected = true; voiceSelect.appendChild(opt1);
+        // 1. रेनू (डिफ़ॉल्ट फीमेल)
+        let opt1 = document.createElement('option'); 
+        opt1.textContent = "रेनू (Female)"; 
+        opt1.value = femaleVoice.name + "|1.0"; 
+        opt1.selected = true; 
+        voiceSelect.appendChild(opt1);
         
-        // 2. कन्नु (कार्टून/शिजुका - High Pitch)
-        let opt2 = document.createElement('option'); opt2.textContent = "कन्नु (Cartoon)"; opt2.value = baseVoice.name + "|1.8"; voiceSelect.appendChild(opt2);
+        // 2. कन्नु (फीमेल - परफेक्ट क्यूट चाइल्ड पिच 1.35 जो फटेगी नहीं)
+        let opt2 = document.createElement('option'); 
+        opt2.textContent = "कन्नु (Female)"; 
+        opt2.value = femaleVoice.name + "|1.35"; 
+        voiceSelect.appendChild(opt2);
         
-        // 3. मोटू (मेल - अगर असली मेल आवाज़ नहीं है तो फीमेल को बहुत भारी कर देगा)
-        let opt3 = document.createElement('option'); opt3.textContent = "मोटू (Male)"; opt3.value = (realMaleVoice ? realMaleVoice.name + "|1.0" : baseVoice.name + "|0.4"); voiceSelect.appendChild(opt3);
+        // 3. मोटू (मेल आवाज़ फिक्स)
+        let opt3 = document.createElement('option'); 
+        opt3.textContent = "मोटू (Male)"; 
+        opt3.value = maleVoice.name + (maleVoice === femaleVoice ? "|0.7" : "|1.0"); 
+        voiceSelect.appendChild(opt3);
     }
     window.speechSynthesis.onvoiceschanged = loadVoices;
 
@@ -594,6 +642,8 @@
             header.classList.remove('header-compact');
             ttsControls.style.display = 'none'; 
             if(localStorage.getItem('last_read_topic')) document.getElementById('last-read-banner').style.display = 'flex';
+            loadDailyContentUI(); 
+            loadQodUI();
         } else {
             header.classList.add('header-compact');
             document.getElementById('last-read-banner').style.display = 'none';
@@ -635,6 +685,7 @@
         const videoContainer = document.getElementById('video-container');
 
         iframeContainer.innerHTML = ""; videoContainer.innerHTML = "";
+        document.getElementById('detail-back-btn').onclick = function() { showPage('topic-list-page'); };
 
         const hasBlog = data.blog && data.blog.trim() !== "";
         const hasVideos = data.videos && data.videos.some(v => v && v !== "to be available soon" && v !== "video id");
