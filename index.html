@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rohitashva Classes</title>
     <style>
+    /* Blogger के एक्स्ट्रा बॉक्स को फुल-स्क्रीन और फॉन्ट साइज़ को एक जैसा (Uniform) करने का हैक */
+    #native-content > div, 
+    #native-content > span, 
+    #native-content > section,
+    #native-content .post-body {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* सभी टेक्स्ट का फॉन्ट साइज़ ज़बरदस्ती एक बराबर (18px) करने के लिए */
+    #native-content p, 
+    #native-content span, 
+    #native-content div, 
+    #native-content li {
+        font-size: 18px !important; 
+        line-height: 1.8 !important;
+    }
+
+    #native-content img {
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 15px 0 !important;
+    }
         :root { 
             --primary: #0b3d91; --secondary: #1a5bb8; --accent: #e74c3c; 
             --bg: #f0f4f8; --text-dark: #2c3e50; --card-bg: white;
@@ -64,7 +93,7 @@
             grid-column: span 1; position: relative; height: fit-content; margin-top: 15px; 
             border-top: 5px solid #f1c40f; transition: transform 0.3s ease;
         }
-        @media (min-width: 768px) { .daily-learning-box, .qod-box { grid-column: span 2; } }
+        @media (min-width: 768px) { .daily-learning-box { grid-column: span 2; } }
         .dl-badge { background: #f1c40f; color: #2c3e50; padding: 6px 20px; border-radius: 25px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; position: absolute; top: -18px; box-shadow: 0 4px 15px rgba(241, 196, 15, 0.6); border: 2px solid white; }
         .dl-text { font-size: 22px; font-weight: 800; margin: 5px 0 12px 0; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); line-height: 1.4; }
         .dl-meaning { font-size: 16px; opacity: 0.95; font-style: italic; background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: 12px; width: 95%; box-sizing: border-box; border-left: 3px solid #f1c40f; }
@@ -76,7 +105,9 @@
             padding: 35px 20px 20px 20px; text-align: center; 
             box-shadow: 0 10px 20px rgba(0, 114, 255, 0.3), inset 0 0 15px rgba(255,255,255,0.3); 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            grid-column: span 1; position: relative; height: fit-content; margin-top: 15px; 
+            grid-column: 1 / -1; 
+            width: 100%; box-sizing: border-box;
+            position: relative; height: fit-content; margin-top: 15px; 
             border: 3px solid rgba(255,255,255,0.4); transition: transform 0.3s ease;
         }
         .qod-badge { background: #fff; color: #0072ff; padding: 6px 20px; border-radius: 25px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; position: absolute; top: -18px; box-shadow: 0 4px 10px rgba(255,255,255,0.5); border: 2px solid #0072ff; }
@@ -106,9 +137,7 @@
         .back-btn:hover { background: var(--list-hover); color: var(--primary); }
         
         #blog-iframe-container { width: 100%; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); line-height: 1.8; font-size: 17px; box-sizing: border-box; transition: 0.3s ease; }
-        #blog-iframe-container img { max-width: 100% !important; height: auto !important; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 10px 0; }
-        #native-content iframe { width: 100% !important; min-height: 2500px !important; border: none !important; overflow: hidden !important; }
-
+        
         .loader { border: 4px solid var(--list-bg); border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
@@ -152,7 +181,7 @@
 
 <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
 
-<!-- एडमिन मोड के लिए हेडर पर onclick इवेंट लगाया गया है -->
+<!-- 5 Clicks Password logic -->
 <header id="main-header" onclick="makeAdmin()">
     <div class="header-titles">
         <h1>Rohitashva Classes</h1>
@@ -169,7 +198,7 @@
     </div>
 </div>
 
-<div id="reading-box">रोबोट द्वारा कंटेंट पढ़ा जा रहा है...</div>
+<div id="reading-box">रोबोट द्वारा कंटेंट पढ़ा जा रहा है...</div>
 
 <div class="magic-menu-container">
     <div class="magic-options" id="magic-opts">
@@ -180,7 +209,7 @@
         </div>
 
         <div class="option-group" id="tts-controls" style="display: none;">
-            <select id="voice-select" class="voice-control" title="आवाज़ चुनें"><option value="">Loading...</option></select>
+            <select id="voice-select" class="voice-control" title="आवाज़ चुनें"><option value="">Loading...</option></select>
             <select id="speed-select" class="voice-control" style="width: 80px;" title="बोलने की स्पीड">
                 <option value="0.5">0.5x</option><option value="0.75">0.75x</option><option value="1" selected>1.0x</option>
                 <option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2.0x</option>
@@ -203,12 +232,20 @@
         </div>
 
         <div class="grid">
-            <!-- 1. सभी विषय (Subjects) बड़े और आकर्षक आइकन्स के साथ -->
+            <!-- Subjects: Part 1 -->
             <div class="card history" onclick="loadSections('History')"><div class="card-icon">📜</div><div class="card-title">History</div></div>
             <div class="card geography" onclick="loadSections('Geography')"><div class="card-icon">🗺️</div><div class="card-title">Geography</div></div>
             <div class="card polity" onclick="loadTopics('Polity', 'homepage')"><div class="card-icon">⚖️</div><div class="card-title">Polity</div></div>
             <div class="card economics" onclick="loadTopics('Economics', 'homepage')"><div class="card-icon">📊</div><div class="card-title">Economics</div></div>
             <div class="card science" onclick="loadSections('Science')"><div class="card-icon">🧬</div><div class="card-title">Science</div></div>
+            
+            <!-- Center: Daily Learning -->
+            <div class="daily-learning-box" id="daily-learning-box">
+                <div class="loader" style="border-color: #fff; border-top-color: #f1c40f;"></div>
+                <p style="margin-top:10px;">ज्ञान लोड हो रहा है...</p>
+            </div>
+
+            <!-- Subjects: Part 2 -->
             <div class="card uk" onclick="loadSections('Uttarakhand Special')"><div class="card-icon">🛕</div><div class="card-title">Uttarakhand Special</div></div>
             <div class="card hindi" onclick="loadTopics('General Hindi', 'homepage')"><div class="card-icon">✍️</div><div class="card-title">General Hindi</div></div>
             <div class="card reasoning" onclick="loadTopics('Reasoning', 'homepage')"><div class="card-icon">🧩</div><div class="card-title">Reasoning</div></div>
@@ -216,28 +253,27 @@
             <div class="card ca" onclick="loadTopics('Current Affairs', 'homepage')"><div class="card-icon">🌐</div><div class="card-title">Current Affairs</div></div>
             <div class="card practice" onclick="loadTopics('PYQ Practice Sets', 'homepage')"><div class="card-icon">🎯</div><div class="card-title">PYQ Practice Sets</div></div>
             
-            <!-- 2. डिज़ाइन्ड बॉक्सेस सबसे नीचे -->
-            <div class="daily-learning-box" id="daily-learning-box">
-                <div class="loader" style="border-color: #fff; border-top-color: #f1c40f;"></div>
-                <p style="margin-top:10px;">ज्ञान लोड हो रहा है...</p>
-            </div>
-
+            <!-- Bottom Full Width: QOD -->
             <div class="qod-box" id="qod-box">
                 <div class="loader" style="border-color: #fff; border-top-color: #2ecc71;"></div>
                 <p style="margin-top:10px;">प्रश्न लोड हो रहा है...</p>
             </div>
         </div>
         
-        <!-- नया वर्किंग विज़िटर काउंटर और एडमिन स्टेटस -->
         <div class="visit-counter">
             <p style="font-weight: bold; font-size: 18px; margin-bottom: 10px;">📊 Total Website Visits</p>
-            <div id="counter-wrapper">
-                <!-- काउंटर इमेज JS से लोड होगी -->
+            <div id="counter-wrapper"></div>
+            
+            <!-- Admin Panel Menu -->
+            <div id="admin-panel" style="display:none; margin-top: 15px; background: var(--card-bg); padding: 15px; border-radius: 12px; border: 2px dashed #e74c3c; text-align: center;">
+                <p style="color: #2ecc71; font-weight: bold; margin-top: 0;">🛡️ Admin Mode Active (Visits Hidden)</p>
+                <button onclick="resetCounter()" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-right: 10px;">🔄 Reset Counter</button>
+                <button onclick="exitAdmin()" style="background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold;">❌ Exit Admin</button>
             </div>
-            <p id="admin-status" style="display:none; color: #2ecc71; font-size: 14px; margin-top: 8px; font-weight: bold;">🛡️ Admin Mode Active (Your visits are hidden)</p>
         </div>
     </div>
 
+    <!-- Other Pages remain identical -->
     <div id="section-page" class="page">
         <div class="inner-page-header">
             <h2 id="sec-title" style="margin: 0; color: var(--primary); font-size: 26px;"></h2>
@@ -269,49 +305,87 @@
 
 <script>
     // ============================================================================
-    // 🛡️ SECRET ADMIN MODE (विज़िटर काउंटर हैक)
+    // 🛡️ SECURE ADMIN MODE & RESET
     // ============================================================================
     let adminClicks = 0;
     function makeAdmin() {
         adminClicks++;
         if(adminClicks === 5) {
-            if(localStorage.getItem('isAdmin')) {
-                localStorage.removeItem('isAdmin');
-                alert("Admin Mode OFF: नीरज, अब से आपकी विज़िट्स काउंट होंगी।");
+            adminClicks = 0; // reset clicks
+            if(localStorage.getItem('isAdmin') === 'true') {
+                alert("Aap pehle se hi Admin Mode me hain!");
             } else {
-                localStorage.setItem('isAdmin', 'true');
-                alert("Admin Mode ON: नीरज, अब से वेबसाइट खुलने पर आपका व्यू काउंट नहीं होगा!");
+                let pwd = prompt("Admin Access ke liye Password enter karein:");
+                if(pwd === "18101988") {
+                    localStorage.setItem('isAdmin', 'true');
+                    alert("Welcome Neeraj! Admin Mode Activated.");
+                    location.reload();
+                } else if(pwd !== null) {
+                    alert("Galat Password!");
+                }
             }
-            location.reload();
         }
+    }
+
+    function exitAdmin() {
+        localStorage.removeItem('isAdmin');
+        alert("Admin Mode OFF. Ab se aapki visits count hongi.");
+        location.reload();
+    }
+
+    function resetCounter() {
+        let currentVersion = localStorage.getItem('counterVersion') || 1;
+        localStorage.setItem('counterVersion', parseInt(currentVersion) + 1);
+        alert("Visitor Counter reset ho gaya hai! (Ab ye naye sire se start hoga)");
+        location.reload();
     }
 
     function loadVisitorCounter() {
         const wrapper = document.getElementById('counter-wrapper');
-        const adminStatus = document.getElementById('admin-status');
-        
+        const adminPanel = document.getElementById('admin-panel');
+        let version = localStorage.getItem('counterVersion') || 1;
+        let counterUrl = `https://api.visitorbadge.io/api/visitors?path=rohitashvaclasses.index.v${version}&countColor=%23e74c3c&style=flat-square`;
+
         if(localStorage.getItem('isAdmin') === 'true') {
-            // एडमिन को काउंटर लोड नहीं करना है, ताकि नंबर न बढ़े
             wrapper.innerHTML = `<img src="https://img.shields.io/badge/Visits-Hidden%20for%20Admin-blue?style=flat-square" style="height: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;">`;
-            adminStatus.style.display = 'block';
+            adminPanel.style.display = 'block';
         } else {
-            // असली दुनिया के लिए असली काउंटर
-            wrapper.innerHTML = `<img src="https://api.visitorbadge.io/api/visitors?path=rohitashvaclasses.index&countColor=%23e74c3c&style=flat-square" alt="Visitor Count" style="height: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;">`;
+            wrapper.innerHTML = `<img src="${counterUrl}" alt="Visitor Count" style="height: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 4px;">`;
+            adminPanel.style.display = 'none';
         }
     }
 
     // ============================================================================
-    // 🚀 BULLETPROOF GOOGLE SHEETS API & CLICK FIX
+    // 🚀 BULLETPROOF GOOGLE SHEETS API WITH GLOBAL ADMIN CONTROL
     // ============================================================================
     const SHEET_ID = '1uJwikT8zQIE_CMOAZ2DrSza7caXpFnvfU1nVkkNsYc0';
     let topCurrentAffairs = [];
     let dailyLearningData = [];
     let qodData = [];
+    let adminSettings = {}; // Global Hide/Show data
 
     async function fetchGoogleSheetsData() {
         const newsUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=News`;
         const learningUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Learning`;
         const qodUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('Question of the Day')}`;
+        const adminUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Admin`;
+
+        // 1. Fetch Admin Settings (Hide/Show Control)
+        try {
+            const adminRes = await fetch(adminUrl);
+            const adminText = await adminRes.text();
+            if(adminText.includes("google.visualization.Query.setResponse")) {
+                const adminJsonStr = adminText.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/)[1];
+                const adminData = JSON.parse(adminJsonStr);
+                if (adminData.table && adminData.table.rows) {
+                    adminData.table.rows.forEach(row => {
+                        let itemName = (row.c && row.c[0] && row.c[0].v) ? row.c[0].v.trim() : "";
+                        let itemStatus = (row.c && row.c[1] && row.c[1].v) ? row.c[1].v.trim().toUpperCase() : "ON";
+                        if(itemName && itemName !== "Name") adminSettings[itemName] = itemStatus;
+                    });
+                }
+            }
+        } catch(e) { console.log("Admin setup pending... Defaulting to ON"); }
 
         try {
             const newsRes = await fetch(newsUrl);
@@ -357,6 +431,7 @@
             loadNewsTickerUI();
             loadDailyContentUI();
             loadQodUI();
+            applyAdminSettings(); // Hides cards marked as OFF
 
         } catch (error) {
             console.error("Google Sheet Fetch Error:", error);
@@ -366,10 +441,25 @@
         }
     }
 
+    // Hide Homepage Subjects marked as OFF in Admin sheet
+    function applyAdminSettings() {
+        document.querySelectorAll('.card').forEach(card => {
+            let titleObj = card.querySelector('.card-title');
+            if(titleObj) {
+                let title = titleObj.innerText.trim();
+                if(adminSettings[title] === 'OFF') {
+                    card.style.display = 'none';
+                } else {
+                    card.style.display = 'flex';
+                }
+            }
+        });
+    }
+
     function loadNewsTickerUI() {
         const ticker = document.getElementById('ticker-content');
         if(topCurrentAffairs.length === 0) {
-            ticker.innerHTML = "<span class='ticker-item'>अभी कोई ताज़ा खबर उपलब्ध नहीं है।</span>";
+            ticker.innerHTML = "<span class='ticker-item'>अभी कोई ताज़ा खबर उपलब्ध नहीं है।</span>";
             return;
         }
         const newsHtml = topCurrentAffairs.map((news, index) => 
@@ -488,20 +578,17 @@
         let femaleVoice = hindiVoices.find(v => v !== maleVoice) || hindiVoices[0];
         if(!maleVoice) maleVoice = hindiVoices[0];
 
-        // 1. रेनू 
         let opt1 = document.createElement('option'); 
         opt1.textContent = "रेनू (Female)"; 
         opt1.value = femaleVoice.name + "|1.0"; 
         opt1.selected = true; 
         voiceSelect.appendChild(opt1);
         
-        // 2. कन्नु (प्यारी सुरीली आवाज़ - पिच 1.15 जो फटेगी नहीं)
         let opt2 = document.createElement('option'); 
         opt2.textContent = "कन्नु (Sweet Female)"; 
         opt2.value = femaleVoice.name + "|1.15"; 
         voiceSelect.appendChild(opt2);
         
-        // 3. मोटू (मेल आवाज़ फिक्स)
         let opt3 = document.createElement('option'); 
         opt3.textContent = "मोटू (Male)"; 
         opt3.value = maleVoice.name + (maleVoice === femaleVoice ? "|0.7" : "|1.0"); 
@@ -624,7 +711,7 @@
         "Chemistry": ["परमाणु", "पदार्थ", "तत्व", "अभिक्रियाएं", "अम्ल/क्षार", "धातु/अधातु", "ईंधन", "दैनिक रसायन"],
         "Biology": ["कोशिका", "पाचन", "रक्त", "पादप", "विटामिन", "रोग", "हार्मोन", "अनुवांशिकी"],
         "Uttarakhand Special": ["UK History", "UK Geography", "UK Culture", "National Parks", "Rivers", "Population"],
-        "UK History": ["राज्य विशेष: भूगोल का इतिहास पर प्रभाव एवं मुख्य  ऐतिहासिक स्थल","प्रागैतिहासिक काल", "कत्यूरी राजवंश", "चंद राजवंश", "पंवार राजवंश", "गोरखा शासन", "ब्रिटिश शासन", "आंदोलन", "राज्य गठन"],
+        "UK History": ["1. राज्य विशेष: भूगोल का इतिहास पर प्रभाव एवं मुख्य  ऐतिहासिक स्थल","2. उत्तराखण्ड इतिहास के स्रोत","3. उत्तराखण्ड का प्राक्-इतिहास एवं आद्य इतिहास","4. आरम्भिक ऐतिहासिककाल (Early Historic Period)","5. उत्तराखण्ड की प्रथम राजनीतिक शक्ति (कुणिन्द)", "6. उत्तराखंड का प्रथम ऐतिहासिक राजवंश (कार्त्तिकेयपुर राजवंश )", "7. बहुराजकता का काल", "8. गढ़वाल का पँवार राजवंश", "9. पँवार राजवंश का उत्थान", "10. पँवार शक्ति का विस्तार-काल"],
         "Polity": ["संविधान सभा", "प्रस्तावना", "मौलिक अधिकार", "नीति निदेशक", "राष्ट्रपति", "संसद", "पंचायत", "अनुच्छेद"],
         "General Hindi": ["वर्णमाला", "संधि", "समास", "तत्सम-तद्भव", "पर्यायवाची", "मुहावरे", "वाक्य शुद्धि", "हिंदी साहित्य"],
         "Mathematics": ["Percentage", "Average", "Profit-Loss", "Ratio", "Time-Work", "Simple Interest"],
@@ -635,8 +722,18 @@
     };
 
     const topicDatabase = {
-        "राज्य विशेष: भूगोल का इतिहास पर प्रभाव एवं मुख्य  ऐतिहासिक स्थल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/ukpcs-1-ukpcs-mains-prelims-1.html", videos: [] },
-        "गांधी युग": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", videos: [] },
+        "1. राज्य विशेष: भूगोल का इतिहास पर प्रभाव एवं मुख्य  ऐतिहासिक स्थल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/ukpcs-1-ukpcs-mains-prelims-1.html", videos: [] },
+        "2. उत्तराखण्ड इतिहास के स्रोत": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_878.html", videos: [] },
+	"3. उत्तराखण्ड का प्राक्-इतिहास एवं आद्य इतिहास": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_13.html", videos: [] },
+	"4. आरम्भिक ऐतिहासिककाल (Early Historic Period)": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/4-early-historic-period.html", videos: [] },
+	"5. उत्तराखण्ड की प्रथम राजनीतिक शक्ति (कुणिन्द)": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_78.html", videos: [] },
+	"6. उत्तराखंड का प्रथम ऐतिहासिक राजवंश (कार्त्तिकेयपुर राजवंश )": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_459.html", videos: [] },
+	"7. बहुराजकता का काल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/7.html", videos: [] },
+	"8. गढ़वाल का पँवार राजवंश": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/8.html", videos: [] },
+	"9. पँवार राजवंश का उत्थान": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/10.html", videos: [] },
+	"10. पँवार शक्ति का विस्तार-काल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/10_01926159667.html", videos: [] },
+	
+	"गांधी युग": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", videos: [] },
         "मौर्य साम्राज्य": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post.html", videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"] },
         "गोरखा शासन": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post_07.html", videos: ["YOUTUBE_ID_1", "YOUTUBE_ID_2", "YOUTUBE_ID_3"] },
         "सिंधु घाटी सभ्यता": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/03/indus.html", videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"] },
@@ -685,9 +782,12 @@
         const list = document.getElementById('sec-list'); document.getElementById('sec-title').innerText = subject + " Modules";
         list.innerHTML = "";
         structure[subject].forEach(sec => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span style="display:flex; align-items:center;"><span style="font-size:22px; margin-right:15px;">📁</span> ${sec}</span> <span style='color:var(--accent); font-size:20px;' class='arrow'>➔</span>`;
-            li.onclick = () => loadTopics(sec, 'section-page'); list.appendChild(li);
+            // ADMIN CONTROL CHECKS
+            if(adminSettings[sec] !== 'OFF') {
+                const li = document.createElement('li');
+                li.innerHTML = `<span style="display:flex; align-items:center;"><span style="font-size:22px; margin-right:15px;">📁</span> ${sec}</span> <span style='color:var(--accent); font-size:20px;' class='arrow'>➔</span>`;
+                li.onclick = () => loadTopics(sec, 'section-page'); list.appendChild(li);
+            }
         });
         showPage('section-page'); document.getElementById('tts-controls').style.display = 'none';
     }
@@ -697,9 +797,12 @@
         list.innerHTML = "";
         const topics = structure[title] || [];
         topics.forEach(t => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span style="display:flex; align-items:center;"><span style="font-size:22px; margin-right:15px;">📖</span> ${t}</span> <span style='color:var(--accent); font-size:20px;' class='arrow'>➔</span>`;
-            li.onclick = () => loadContent(t); list.appendChild(li);
+            // ADMIN CONTROL CHECKS
+            if(adminSettings[t] !== 'OFF') {
+                const li = document.createElement('li');
+                li.innerHTML = `<span style="display:flex; align-items:center;"><span style="font-size:22px; margin-right:15px;">📖</span> ${t}</span> <span style='color:var(--accent); font-size:20px;' class='arrow'>➔</span>`;
+                li.onclick = () => loadContent(t); list.appendChild(li);
+            }
         });
         document.getElementById('list-back-btn').onclick = () => showPage(backTo); showPage('topic-list-page'); document.getElementById('tts-controls').style.display = 'none';
     }
@@ -739,12 +842,33 @@
                 else {
                     currentFetchingUrl = data.blog;
                     iframeContainer.innerHTML = `<div id='loading-box' style='text-align:center; padding:40px; font-weight:bold;'><div class="loader"></div><div style="margin-top:15px; font-size:18px;">कंटेंट लोड हो रहा है...</div></div><div id='native-content'></div>`;
+                    
                     try {
-                        const url = new URL(data.blog);
-                        const oldScript = document.getElementById('blogger-script'); if (oldScript) oldScript.remove();
-                        const script = document.createElement('script'); script.id = 'blogger-script';
-                        script.src = `https://rohitashvaclasses.blogspot.com/feeds/posts/default?alt=json-in-script&path=${url.pathname}&callback=handleBloggerResponse`;
-                        document.body.appendChild(script);
+                        // SMART LOGIC: Agar link me blogspot hai, to purana tarika (Blogger)
+                        if (data.blog.includes("blogspot.com")) {
+                            const url = new URL(data.blog);
+                            const oldScript = document.getElementById('blogger-script'); if (oldScript) oldScript.remove();
+                            const script = document.createElement('script'); script.id = 'blogger-script';
+                            script.src = `https://rohitashvaclasses.blogspot.com/feeds/posts/default?alt=json-in-script&path=${url.pathname}&callback=handleBloggerResponse`;
+                            document.body.appendChild(script);
+                        } 
+                        // Agar naya GitHub ka link hai (jaise "notes/file.html"), to naya fast tarika (Local Fetch)
+                        else {
+                            fetch(data.blog)
+                                .then(response => {
+                                    if(!response.ok) throw new Error("File nahi mili");
+                                    return response.text();
+                                })
+                                .then(htmlData => {
+                                    document.getElementById('loading-box').style.display = 'none';
+                                    document.getElementById('native-content').innerHTML = htmlData;
+                                    localStorage.setItem('cache_' + data.blog, htmlData);
+                                })
+                                .catch(err => {
+                                    document.getElementById('loading-box').style.display = 'none';
+                                    document.getElementById('native-content').innerHTML = `<p style="color:red; text-align:center;">कंटेंट लोड नहीं हो पाया। कृपया इंटरनेट कनेक्शन चेक करें।</p>`;
+                                });
+                        }
                     } catch(e) { iframeContainer.innerHTML = `<p style="color:red; text-align:center;">त्रुटि आई।</p>`; }
                 }
             }
