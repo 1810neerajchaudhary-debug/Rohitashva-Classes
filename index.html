@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rohitashva Classes</title>
     <style>
-    /* Blogger के एक्स्ट्रा बॉक्स को फुल-स्क्रीन और फॉन्ट साइज़ को एक जैसा (Uniform) करने का हैक */
+    /* Blogger के एक्स्ट्रा बॉक्स को सही चौड़ाई (Box-sizing) और पैडिंग में रखने का फिक्स */
     #native-content > div, 
     #native-content > span, 
     #native-content > section,
     #native-content .post-body {
         max-width: 100% !important;
         width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
         box-shadow: none !important;
-        border-radius: 0 !important;
+        border-radius: 8px !important;
         border: none !important;
-        padding: 0 !important;
+        padding: 15px 20px !important;
+        overflow-x: hidden !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
 
     /* सभी टेक्स्ट का फॉन्ट साइज़ ज़बरदस्ती एक बराबर (18px) करने के लिए */
@@ -27,6 +30,7 @@
     #native-content li {
         font-size: 18px !important; 
         line-height: 1.8 !important;
+        box-sizing: border-box !important;
     }
 
     #native-content img {
@@ -34,6 +38,83 @@
         height: auto !important;
         margin: 15px 0 !important;
     }
+
+    /* ==========================================================================
+       🌙 ULTIMATE DARK MODE FIX FOR BLOG CONTENT (Deep Facts, Tables, Headings)
+       ========================================================================== */
+    /* 1. मुख्य बाहरी डिब्बा */
+    body.dark-mode #native-content > div {
+        background-color: var(--card-bg) !important;
+        color: var(--text-dark) !important;
+    }
+
+    /* 2. अंदर के सभी हल्के रंग वाले बॉक्स (Deep Fact, Teacher Note, Flowchart, Blockquote) को डार्क बनाना */
+    body.dark-mode #native-content div[style*="background"],
+    body.dark-mode #native-content blockquote[style*="background"] {
+        background-color: #262b30 !important;
+        color: #f1f5f9 !important;
+        border-color: rgba(255,255,255,0.15) !important;
+    }
+
+    /* 3. गहरे रंग के फ्लोचार्ट स्टेप्स और मास्टर टेबल हेडर को सुरक्षित रखना */
+    body.dark-mode #native-content div[style*="#34495e"],
+    body.dark-mode #native-content div[style*="#e67e22"],
+    body.dark-mode #native-content div[style*="#27ae60"],
+    body.dark-mode #native-content div[style*="#8e44ad"],
+    body.dark-mode #native-content div[style*="linear-gradient"] {
+        color: #ffffff !important;
+    }
+
+    /* 4. H2 हेडिंग्स (जिनमें हल्का गुलाबी बैकग्राउंड है) को डार्क मोड के अनुकूल बनाना */
+    body.dark-mode #native-content h2[style*="background"] {
+        background-color: #3b1c19 !important;
+        color: #ff7675 !important;
+    }
+
+    /* 5. अन्य सभी हेडिंग्स (H1, H2, H3) का रंग डार्क मोड में चमकीला करना */
+    body.dark-mode #native-content h1 {
+        color: #ffffff !important;
+    }
+    body.dark-mode #native-content h2 {
+        color: #55efc4 !important;
+    }
+    body.dark-mode #native-content h3 {
+        color: #74b9ff !important;
+    }
+
+    /* 6. सभी पैराग्राफ, लिस्ट और स्पैन का टेक्स्ट साफ सफेद दिखाना */
+    body.dark-mode #native-content p,
+    body.dark-mode #native-content li,
+    body.dark-mode #native-content ul,
+    body.dark-mode #native-content ol,
+    body.dark-mode #native-content span {
+        color: #e2e8f0 !important;
+    }
+
+    /* 7. बोल्ड (Strong) शब्दों को हल्का सुनहरा/चमकीला रंग देना ताकि अलग से दिखें */
+    body.dark-mode #native-content strong,
+    body.dark-mode #native-content b {
+        color: #ffeaa7 !important;
+    }
+
+    /* 8. टेबल्स (Tables) को डार्क मोड में सेट करना */
+    body.dark-mode #native-content table,
+    body.dark-mode #native-content tr,
+    body.dark-mode #native-content td {
+        background-color: #1e2227 !important;
+        color: #e2e8f0 !important;
+        border-color: #374151 !important;
+    }
+    body.dark-mode #native-content tr[style*="background"] {
+        background-color: #282d34 !important;
+    }
+    body.dark-mode #native-content th {
+        background-color: #0b3d91 !important;
+        color: #ffffff !important;
+        border-color: #374151 !important;
+    }
+    /* ========================================================================== */
+
         :root { 
             --primary: #0b3d91; --secondary: #1a5bb8; --accent: #e74c3c; 
             --bg: #f0f4f8; --text-dark: #2c3e50; --card-bg: white;
@@ -136,7 +217,7 @@
         .back-btn { margin-bottom: 0; color: var(--text-dark); cursor: pointer; font-weight: bold; display: inline-block; padding: 8px 18px; background: var(--bg); border-radius: 8px; transition: 0.2s; border: 1px solid rgba(0,0,0,0.1); }
         .back-btn:hover { background: var(--list-hover); color: var(--primary); }
         
-        #blog-iframe-container { width: 100%; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); line-height: 1.8; font-size: 17px; box-sizing: border-box; transition: 0.3s ease; }
+        #blog-iframe-container { width: 100%; background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); line-height: 1.8; font-size: 17px; box-sizing: border-box; transition: 0.3s ease; overflow-x: hidden; }
         
         .loader { border: 4px solid var(--list-bg); border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -724,16 +805,16 @@
     const topicDatabase = {
         "1. राज्य विशेष: भूगोल का इतिहास पर प्रभाव एवं मुख्य  ऐतिहासिक स्थल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/ukpcs-1-ukpcs-mains-prelims-1.html", videos: [] },
         "2. उत्तराखण्ड इतिहास के स्रोत": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_878.html", videos: [] },
-	"3. उत्तराखण्ड का प्राक्-इतिहास एवं आद्य इतिहास": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_13.html", videos: [] },
-	"4. आरम्भिक ऐतिहासिककाल (Early Historic Period)": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/4-early-historic-period.html", videos: [] },
-	"5. उत्तराखण्ड की प्रथम राजनीतिक शक्ति (कुणिन्द)": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_78.html", videos: [] },
-	"6. उत्तराखंड का प्रथम ऐतिहासिक राजवंश (कार्त्तिकेयपुर राजवंश )": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_459.html", videos: [] },
-	"7. बहुराजकता का काल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/7.html", videos: [] },
-	"8. गढ़वाल का पँवार राजवंश": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/8.html", videos: [] },
-	"9. पँवार राजवंश का उत्थान": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/10.html", videos: [] },
-	"10. पँवार शक्ति का विस्तार-काल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/10_01926159667.html", videos: [] },
-	
-	"गांधी युग": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", videos: [] },
+        "3. उत्तराखण्ड का प्राक्-इतिहास एवं आद्य इतिहास": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_13.html", videos: [] },
+        "4. आरम्भिक ऐतिहासिककाल (Early Historic Period)": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/4-early-historic-period.html", videos: [] },
+        "5. उत्तराखण्ड की प्रथम राजनीतिक शक्ति (कुणिन्द)": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_78.html", videos: [] },
+        "6. उत्तराखंड का प्रथम ऐतिहासिक राजवंश (कार्त्तिकेयपुर राजवंश )": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/blog-post_459.html", videos: [] },
+        "7. बहुराजकता का काल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/7.html", videos: [] },
+        "8. गढ़वाल का पँवार राजवंश": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/8.html", videos: [] },
+        "9. पँवार राजवंश का उत्थान": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/10.html", videos: [] },
+        "10. पँवार शक्ति का विस्तार-काल": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/09/10_01926159667.html", videos: [] },
+        
+        "गांधी युग": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/04/blog-post.html", videos: [] },
         "मौर्य साम्राज्य": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post.html", videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"] },
         "गोरखा शासन": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/03/blog-post_07.html", videos: ["YOUTUBE_ID_1", "YOUTUBE_ID_2", "YOUTUBE_ID_3"] },
         "सिंधु घाटी सभ्यता": { overview: "", blog: "https://rohitashvaclasses.blogspot.com/2026/03/indus.html", videos: ["r0zuq7jU03c", "e6AZ09Zzg78", "GUrbMW0Mdmg"] },
